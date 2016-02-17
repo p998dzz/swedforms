@@ -14,6 +14,14 @@ swedApp.config(['$routeProvider',
         templateUrl: 'partials/home.html',
         controller: 'homeController'
       }).
+      when('/newRegistration', {
+              templateUrl: 'partials/newRegistration.html',
+              controller: 'newRegistrationController'
+            }).
+      when('/ContactUs', {
+              templateUrl: 'partials/ContactUs.html',
+              controller: 'ContactUsController'
+            }).
       otherwise({
         redirectTo: '/'
       });
