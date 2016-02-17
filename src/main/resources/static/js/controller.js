@@ -23,3 +23,20 @@ appControllers.controller('loginController', function($scope, $http, $rootScope,
            });
      }
 });
+
+appControllers.controller('homeController', function($scope, $http, $rootScope, $window) {
+    $scope.regi = function() {
+        $window.location.href = '/#/newRegistration';
+     }
+    $scope.cont = function() {
+        $window.location.href = '/#/ContactUs';
+  }
+});
+
+appControllers.controller('newRegistrationController', function($scope, $http, $rootScope, $window) {
+
+});
+
+appControllers.controller('ContactUsController', function($scope, $http, $rootScope, $window) {
+
+});
