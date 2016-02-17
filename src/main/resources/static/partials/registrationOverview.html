@@ -1,0 +1,34 @@
+
+<head>
+    <title>Registracijos peržiūra</title>
+</head>
+
+
+<h1>Registracijos internetu</h1>
+<table>
+
+    <thead>
+    <tr>
+        <th>Data</th>
+        <th>Banko skyrius</th>
+        <th>Tema</th>
+        <th>Veiksmai</th>
+    </tr>
+
+    </thead>
+    <tbody>
+    <tr ng-repeat="item in items">
+        <td>{{item.date}}</td>
+        <td>{{item.section}}</td>
+        <td>{{item.topic}}</td>
+        <td>Peržiūrėt</td>
+        <td>Atsisakyti</td>
+    </tr>
+
+    </tbody>
+</table>
+
+<a href="newRegistration.html">Nauja registracija</a>
+
+
+</html>
