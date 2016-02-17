@@ -15,7 +15,7 @@ public class WebService {
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public String authenticate(@RequestBody final Login person) {
         String user = UserController.FindPerson(person);
-        return "Running ...";
+        return user;
     }
 
 }
