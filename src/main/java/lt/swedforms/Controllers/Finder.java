@@ -16,4 +16,13 @@ public class Finder {
         }
         return null;
     }
+
+    public static String checkPersonExistence(Login person) {
+        if(person.getEmail().length() != 0 && person.getPass().length() != 0)
+        {
+            Random rand = new Random();
+            return rand.nextDouble()+"";
+        }
+        return 200+"";
+    }
 }
