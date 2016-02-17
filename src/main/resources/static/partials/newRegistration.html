@@ -3,25 +3,26 @@
     <title>Registracija</title>
 </head>
 
-<div  class="centered">
-    <form>
+<div>
+    <form ng-submit="register()" >
         <table class="registrationTable">
+
             <h1>Registruokitės konsultacijai internetu</h1>
             <tr>
                 <td><div class = "field">Vardas *</div></td>
-                <td><input class="field" type="text"></td>
+                <td><input class="field" id="nameField" type="text"></td>
             </tr>
             <tr>
                 <td><div class = "field">Pavardė *</div></td>
-                <td><input class="field" type="text"></td>
+                <td><input class="field" id="surnameField" type="text"></td>
             </tr>
             <tr>
                 <td><div class = "field">Telefonas susisiekti *</div></td>
-                <td><input class="field" type="text"></td>
+                <td><input class="field" id="telNumberField" type="text"></td>
             </tr>
             <tr>
                 <td><div class = "field">El paštas *</div></td>
-                <td><input class="field"  type="text"></td>
+                <td><input class="field" id="emailField" type="text"></td>
             </tr>
 
             <tr>
@@ -63,8 +64,15 @@
                 <td><textarea id="textField" cols="60" rows="10"></textarea></td>
             </tr>
 
-            <tr><td><button class="editbtn">Siųsti</button></td></tr>
-
+           <!--<tr><td align="bottom" align="right"> <button ng-submit="register()" class="btn btn-default" type="submit">Click Me!</button></td></tr>-->
+            <!--<tr><td><button class="editbtn">Siųsti</button></td></tr>-->
+            <tr>
+                <td></td>
+            <td valign="bottom" align="right"><input class="btn btn-default" type="submit" value="Siūsti"></td>
+            </tr>
+            <!--<div style="bottom">-->
+                <!--<a ng-submit="register()" class="btn btn-default" type="submit">Siūsti</a>-->
+            <!--</div>-->
 
         </table>
     </form>
