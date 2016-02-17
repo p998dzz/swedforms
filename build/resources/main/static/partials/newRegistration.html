@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registracija</title>
+</head>
+
+
+<body ng-app="UserForms" ng-controller="loginController"
+      class="text-center">
+<form>
+    <h1>Registruokitės konsultacijai internetu</h1>
+    <div class = "field">Vardas *</div>
+    <input class="field" type="text">
+    <div class = "field">Pavardė *</div>
+    <input class="field" type="text">
+    <div class = "field">Telefonas susisiekti *</div>
+    <input class="field" type="text">
+    <div class = "field">El paštas *</div>
+    <input class="field"  type="text">
+    <div class="field"><label for="unit">Banko skyrius</label>
+        <select name="bankUnits" id = "unit">
+            <option value="antakalnio45">Antakalnio g. 45</option>
+            <option value="ateities91">Ateities g. 91 (PC „Mandarinas") </option>
+            <option value="fiat">Gedimino pr. 56 ;</option>
+            <option value="konstitucijos20">Konstitucijos pr. 20A, dirba Būsto Centras</option>
+            <option value="ozo25">Ozo g. 25 (PPC „Akropolis")</option>
+        </select>
+    </div>
+    <div class = "date">Data</div>
+    <input class="field" type="date">
+    <div class="field"><label for="topic">Tema</label>
+        <select name="topic" id = "topic">
+            <option value="taupymas">Taupymas ir investavimas</option>
+            <option value="pensijos">Pensijos ir kaupimas</option>
+            <option value="gyvybes">Gyvybės draudimas</option>
+            <option value="negyvybes">Ne gyvybės draudimas</option>
+            <option value="paskolos">Paskolos, lizingas</option>
+            <option value="kasdieniu">Kasdienių finansų valdymas</option>
+        </select>
+    </div>
+    <div clas="field long">Pastabos, komentarai</div>
+    <textarea id="textField" cols="60" rows="10"></textarea>
+    <input class="btn btn-default" type="button" value="Siųsti">
+
+
+</form>
+
+
+</body>
+</html>
