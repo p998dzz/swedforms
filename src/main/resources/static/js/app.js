@@ -3,7 +3,7 @@ var swedApp =  angular.module('UserForms', [
   'ngRoute'
 ]);
 
-phonecatApp.config(['$routeProvider',
+swedApp.config(['$routeProvider',
   function($routeProvider, $rootScope) {
     $routeProvider.
       when('/', {
