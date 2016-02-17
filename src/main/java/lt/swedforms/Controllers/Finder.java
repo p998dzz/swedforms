@@ -7,7 +7,7 @@ import java.util.Random;
 /**
  * Created by Super on 2/17/2016.
  */
-public class UserController {
+public class Finder {
     public static String FindPerson(Login person){
         if(person.getEmail().length() != 0 && person.getPass().length() != 0)
         {
