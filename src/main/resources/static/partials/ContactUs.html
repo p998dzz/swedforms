@@ -1,90 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
 
-    <meta charset="UTF-8">
-    <title>ContactUs</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <title>Parašykite mums</title>
 </head>
-<body>
-    <h1>Parašykite mums</h1>
-        <div action="action_page.php">
-        <form class >
-            <table >
-                <tr>
-                    <td>Tema</td>
-                    <td>
-                        <select >
-                            <option value="Nepasirinkta" selected>Nepasirinkta</option>
-                            <option value="Taupymas ir investavimas">Taupymas ir investavimas</option>
-                            <option value="Pensijos ir kaupimas">Pensijos ir kaupimas</option>
-                            <option value="Gyvybės draudimas">Gyvybės draudimas</option>
-                            <option value="Ne gyvybės draudimas">Ne gyvybės draudimas</option>
-                            <option value="Paskolos, lizingas">Paskolos, lizingas</option>
-                            <option value="Kasdieninių finansų valdymas">Kasdienių finansų valdymas</option>
-                        </select>
-                    </td>
-                </tr>
 
-                <tr>
-                    <td>Žinutės tekstas</td>
-                    <td><textarea  maxlength="400" name="question" style="height:80px; width: 270px;" id="message" cols="60" rows="10"></textarea></td>
-                </tr>
+<h1>Parašykite mums</h1>
+<div action="action_page.php">
+    <form class>
+        <table>
+            <tr>
+                <td>Tema</td>
+                <td>
+                    <select>
+                        <option value="Nepasirinkta" selected>Nepasirinkta</option>
+                        <option value="Taupymas ir investavimas">Taupymas ir investavimas</option>
+                        <option value="Pensijos ir kaupimas">Pensijos ir kaupimas</option>
+                        <option value="Gyvybės draudimas">Gyvybės draudimas</option>
+                        <option value="Ne gyvybės draudimas">Ne gyvybės draudimas</option>
+                        <option value="Paskolos, lizingas">Paskolos, lizingas</option>
+                        <option value="Kasdieninių finansų valdymas">Kasdienių finansų valdymas</option>
+                    </select>
+                </td>
+            </tr>
 
-                <tr>
-                    <td name="firstname">Vardas</td>
+            <tr>
+                <td>Žinutės tekstas</td>
+                <td><textarea maxlength="400" name="question" style="height:80px; width: 270px;" id="message" cols="60"
+                              rows="10"></textarea></td>
+            </tr>
+
+            <tr>
+                <td name="firstname">Vardas</td>
                 <td><input type="text" id="name"></td>
-                </tr>
+            </tr>
 
-                <tr>
-                    <td name="lastname">Pavardė</td>
-                    <td><input type="text" id="lastname"></td>
-                </tr>
+            <tr>
+                <td name="lastname">Pavardė</td>
+                <td><input type="text" id="lastname"></td>
+            </tr>
 
-                <tr>
-                    <td name="phone">Telefonas</td>
-                    <td><input name="data[Inqury][phone]" type="text" value="+370 " id="phone"></td>
-                </tr>
+            <tr>
+                <td name="phone">Telefonas</td>
+                <td><input name="data[Inqury][phone]" type="text" value="+370 " id="phone"></td>
+            </tr>
 
-                <tr>
-                    <td name="email">El. Paštas</td>
-                    <td><input type="text" id="email"></td>
-                </tr>
+            <tr>
+                <td name="email">El. Paštas</td>
+                <td><input type="text" id="email"></td>
+            </tr>
 
-                <tr>
-                    <td>Kaip pageidaujate gauti atsakymą</td>
-                    <td>
-                        <form>
-                            <input type="radio" name="answer" value="phone" checked id="responcephone"> telefonu<br>
-                            <input type="radio" name="answer" value="email" id="responceemail"> el. paštu<br>
-                            <input type="radio" name="answer" value="email and phone" id="responceboth"> el. paštu and telefonu
-                        </form>
-                    </td>
-                </tr>
-
-
-            </table>
-
-            <div>Į pateiktus klausimus atsakome darbo dienomis 8-20 val., šeštadieniais 9-16 valandomis.<br>Jeigu jums reikalinga
-                skubi informacija, laukiame jūsų skambučių tel. 1884 (privatiems<br>
-                klientams) bei 1633 (verslo klientams). Iš užsienio skambinkite tel. +370 5 268 444<br>(privatiems klientams) bei
-                +370 5 268 4422 (verslo klientams).<br>
-            </div>
-
-            <table>
-                <tr>
-                   <input  type="submit" value="Siųsti" align="right">
-                </tr>
-            </table>
+            <tr>
+                <td>Kaip pageidaujate gauti atsakymą</td>
+                <td>
+                    <form>
+                        <input type="radio" name="answer" value="phone" checked id="responcephone"> telefonu<br>
+                        <input type="radio" name="answer" value="email" id="responceemail"> el. paštu<br>
+                        <input type="radio" name="answer" value="email and phone" id="responceboth"> el. paštu and
+                        telefonu
+                    </form>
+                </td>
+            </tr>
 
 
+        </table>
 
-            <div align="right">
-
-            </div>
-        </form>
-
+        <div>Į pateiktus klausimus atsakome darbo dienomis 8-20 val., šeštadieniais 9-16 valandomis.<br>Jeigu jums
+            reikalinga
+            skubi informacija, laukiame jūsų skambučių tel. 1884 (privatiems<br>
+            klientams) bei 1633 (verslo klientams). Iš užsienio skambinkite tel. +370 5 268 444<br>(privatiems
+            klientams) bei
+            +370 5 268 4422 (verslo klientams).<br>
         </div>
 
-</body>
-</html>
+        <table>
+            <tr>
+                <input type="submit" value="Siųsti" align="right">
+            </tr>
+        </table>
+
+
+        <div align="right">
+
+        </div>
+    </form>
+
+</div>
