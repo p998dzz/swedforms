@@ -1,19 +1,13 @@
 package lt.swedforms.db;//STEP 1. Import required packages
-import org.springframework.boot.context.ConfigurationWarningsApplicationContextInitializer;
-
-import java.sql.*;
-
-
-
 public class JDBC {
 
-    public static void main(String[] args) throws SQLException {
+    /*public static void main(String[] args) throws SQLException {
 
-/**
+*//**
         //Read full usersdatabase
         Read testN = new Read();
         testN.main();
-*/
+*//*
         //Add new non-dublicate user to db
         Write testW = new Write();
         System.out.println(testW.newUserRegistration("subine2@gmail.com", "123456-9"));
@@ -32,5 +26,5 @@ public class JDBC {
         System.out.println(testC.checkPassword("subine2@gmail.com"));
 
 
-    }
+    }*/
 }
