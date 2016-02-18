@@ -34,8 +34,6 @@ appControllers.controller('homeController', function($scope, $http, $rootScope, 
 });
 
 appControllers.controller('newRegistrationController', function($scope, $http, $rootScope, $window) {
-    $
-
 
     $scope.register = function() {
            var name = $( "#nameField" ).val();
@@ -46,7 +44,7 @@ appControllers.controller('newRegistrationController', function($scope, $http, $
             $rootScope.regData = { "name":name, "surname": surname, "telNumber":telNumber, "email": email, "date": date, "bankSection": bankSection, "Topic": topic, "comments": comments };
            $http({
                method: 'POST',
-               url: $rootScope.url+'/checkRegistration',  sitoj vietoj nelabai suprantu koki uml rasyt
+              // url: $rootScope.url+'/checkRegistration',  sitoj vietoj nelabai suprantu koki uml rasyt
                data: $rootScope.regData
            }).then(function successCallback(response) { //nezinau dar kaip ta dali nuo then keist reik
                          if(response.data == "OK")
