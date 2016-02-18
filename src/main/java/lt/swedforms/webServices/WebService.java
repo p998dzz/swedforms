@@ -2,6 +2,7 @@ package lt.swedforms.webServices;
 
 import lt.swedforms.Controllers.DataPreparer;
 import lt.swedforms.Controllers.Finder;
+import lt.swedforms.db.Write;
 import lt.swedforms.transferObjects.Login;
 import lt.swedforms.transferObjects.UserData;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,10 +25,9 @@ public class WebService {
 
     @RequestMapping(value = "/createUser", method = RequestMethod.POST)
     public String createUser(@RequestBody final Login person) {
-        String user = Finder.checkPersonExistence(person);
-        if(user == null)
-            user = "jhjj";
-        return user;
+        boolean user = Write.newUserRegistration(person.getEmail(), person.getPass());
+
+        return "fsdf";
     }
 
     @RequestMapping(value = "/getDataForContacting", method = RequestMethod.POST)

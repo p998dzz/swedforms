@@ -12,7 +12,7 @@ public class Write {
     static final String USER = "sql2107174";
     static final String PASS = "pT2!gA6*";
 
-    public static boolean newUserRegistration(String mail, String password) throws SQLException {
+    public static boolean newUserRegistration(String mail, String password) {
         Connection conn = null;
         Statement stmt = null;
         Boolean result = true;
@@ -88,7 +88,7 @@ public class Write {
         //System.out.println("DONE");
     }//end main
 
-    public static void newRegistration(String mail, String date, String address, String topic) throws SQLException {
+    public static void newRegistration(String mail, String date, String address, String topic) {
         Connection conn = null;
         Statement stmt = null;
         try {
