@@ -26,9 +26,9 @@ public class WebService {
         if(person.getPass().equals(Check.checkPassword(person.getEmail())))
         {
             String ip = request.getRemoteAddr();
-            
+
         }
-        return user;
+        return "";
     }
 
     @RequestMapping(value = "/createUser", method = RequestMethod.POST)
