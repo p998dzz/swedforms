@@ -22,6 +22,10 @@ swedApp.config(['$routeProvider',
               templateUrl: 'partials/ContactUs.html',
               controller: 'ContactUsController'
             }).
+       when('/confirmation', {
+              templateUrl: 'partials/confirmation.html',
+              controller: 'confirmationController'
+            }).
       otherwise({
         redirectTo: '/'
       });
