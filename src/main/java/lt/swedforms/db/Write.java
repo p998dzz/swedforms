@@ -1,7 +1,7 @@
 package lt.swedforms.db;//STEP 1. Import required packages
-
 import java.sql.*;
 import java.util.HashSet;
+
 
 public class Write {
     // JDBC driver name and database URL
@@ -15,7 +15,7 @@ public class Write {
     public static boolean newUserRegistration(String mail, String password) {
         Connection conn = null;
         Statement stmt = null;
-        Boolean result = true;
+        Boolean result = false;
 
         try {
             //STEP 2: Register JDBC driver

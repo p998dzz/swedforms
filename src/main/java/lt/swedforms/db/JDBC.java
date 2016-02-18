@@ -1,13 +1,13 @@
 package lt.swedforms.db;//STEP 1. Import required packages
 public class JDBC {
 
-    /*public static void main(String[] args) throws SQLException {
+    public static void main(String[] args)  {
 
-*//**
+/*
         //Read full usersdatabase
         Read testN = new Read();
         testN.main();
-*//*
+*/
         //Add new non-dublicate user to db
         Write testW = new Write();
         System.out.println(testW.newUserRegistration("subine2@gmail.com", "123456-9"));
@@ -19,12 +19,12 @@ public class JDBC {
         //Check all registrations of specific user
         Check testC2 = new Check();
         System.out.println(testC2.checkRegistrations("swedbank@gmail.com"));
-
+        System.out.println(testW.newUserRegistration("testas", "testas"));
 
 
         Check testC = new Check();
         System.out.println(testC.checkPassword("subine2@gmail.com"));
 
 
-    }*/
+    }
 }
