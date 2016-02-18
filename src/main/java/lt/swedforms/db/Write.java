@@ -12,7 +12,7 @@ public class Write {
     static final String USER = "sql2107174";
     static final String PASS = "pT2!gA6*";
 
-    public static boolean newUserRegistration(String mail, String password){
+    public static boolean newUserRegistration(String mail, String password) throws SQLException {
         Connection conn = null;
         Statement stmt = null;
         Boolean result = true;
@@ -96,9 +96,9 @@ public class Write {
             Class.forName("com.mysql.jdbc.Driver");
 
             //STEP 3: Open a connection
-            System.out.println("Connecting to a selected database...");
+            //System.out.println("Connecting to a selected database...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            System.out.println("Connected database successfully...");
+            //System.out.println("Connected database successfully...");
 
             //STEP 3.5 check for dublicates
 
@@ -110,12 +110,12 @@ public class Write {
 
             //STEP 4: Insert records
 
-            System.out.println("Inserting records into the table...");
+            //System.out.println("Inserting records into the table...");
             stmt = conn.createStatement();
 
             String sql = "INSERT INTO Registrations (mail, Dates, Address, Topic, FirstName, LastName, Phone, Time, Comment) VALUES (" + " '" +
                     mail + "', '"+date+"', '"+address+"', '"+topic+"', '"+firstname+"', '"+lastname+"', '"+phone+"', '"+time+"', '"+comment+"' );";
-            System.out.println(sql);
+            //System.out.println(sql);
             stmt.executeUpdate(sql);
 
             System.out.println("----------New registration added");
@@ -140,9 +140,77 @@ public class Write {
                 se.printStackTrace();
             }//end finally try
         }//end try
-        System.out.println("DONE");
+        //System.out.println("DONE");
     }//end main
+    public static boolean newRand(String mail, int rand) throws SQLException {
+        Connection conn = null;
+        Statement stmt = null;
+        Boolean result = true;
 
-    public static void UpdateRandom(String email, String ip, String userIdentification) {
-    }
+        try {
+            //STEP 2: Register JDBC driver
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //STEP 3: Open a connection
+            //System.out.println("Connecting to a selected database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            //System.out.println("Connected database successfully...");
+
+            //STEP 3.5 check for dublicates
+
+            stmt = conn.createStatement();
+            String sql2 = "SELECT * FROM `users` WHERE 1";
+            ResultSet rs = stmt.executeQuery(sql2);
+
+            HashSet hs = new HashSet();
+
+            if (rs.next() != false) {
+                while (rs.next()) {
+                    //Retrieve by column name
+                    String id = rs.getString("mail");
+                    hs.add(id);
+                }
+            } else {
+                //System.out.println("----------Entry does not exist");
+                result = true;
+            }
+
+            //STEP 4: Insert records
+
+            if (hs.contains(mail)) {
+                //System.out.println("----------Entry allrady exists");
+                stmt = conn.createStatement();
+                String sql = "UPDATE users SET Rand="+"'"+rand+"'"+"WHERE mail="+"'"+mail+"';";
+                stmt.executeUpdate(sql);
+                //System.out.println(sql);
+                result = true;
+
+            } else {
+                //System.out.println("Inserting records into the table...");
+                result = false;
+            }
+
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    conn.close();
+            } catch (SQLException se) {
+            }// do nothing
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+            return result;//end finally try
+        }//end try
+        //System.out.println("DONE");
+    }//end main
 }//end JDBCExample

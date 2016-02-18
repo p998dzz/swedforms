@@ -20,7 +20,7 @@ public class Check {
         Statement stmt = null;
         HashSet hs = null;
         TreeSet ts = null;
-        String pass = "--";
+        String pass = null;
 
         try {
             //STEP 2: Register JDBC driver
@@ -72,6 +72,62 @@ public class Check {
         }//end try
     }//end main
 
+    public static String checkRand(String mail) {
+        Connection conn = null;
+        Statement stmt = null;
+        HashSet hs = null;
+        TreeSet ts = null;
+        String pass = null;
+
+        try {
+            //STEP 2: Register JDBC driver
+            Class.forName("com.mysql.jdbc.Driver");
+
+            //STEP 3: Open a connection
+            //System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            //System.out.println("Connection Sucesfull");
+
+            //STEP 4: Execute a query
+            //System.out.println("Creating statement...");
+            stmt = conn.createStatement();
+
+            String sql = "SELECT * FROM `users` WHERE mail='" + mail + "';";
+            ResultSet rs = stmt.executeQuery(sql);
+            //System.out.println(rs.next());
+
+            //STEP 5: Extract data from result set
+
+            while (rs.next()) {
+
+                pass = rs.getString("Rand");
+
+                //System.out.println("----------"+pass);
+            }
+
+            rs.close();
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    conn.close();
+            } catch (SQLException se) {
+            }// do nothing
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+            return pass;//return null;//end finally try
+        }//end try
+    }//end main
     public static ArrayList checkRegistrations(String mail) {
         Connection conn = null;
         Statement stmt = null;
