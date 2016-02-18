@@ -5,7 +5,7 @@
 
 <h1>Parašykite mums</h1>
 <div action="action_page.php">
-    <form class>
+    <form  ng-submit="contact()">
         <table>
             <tr>
                 <td>Tema</td>
@@ -30,22 +30,22 @@
 
             <tr>
                 <td name="firstname">Vardas</td>
-                <td><input type="text" id="name"></td>
+                <td><input type="text" id="nameField"></td>
             </tr>
 
             <tr>
                 <td name="lastname">Pavardė</td>
-                <td><input type="text" id="lastname"></td>
+                <td><input type="text" id="lastnameField"></td>
             </tr>
 
             <tr>
                 <td name="phone">Telefonas</td>
-                <td><input name="data[Inqury][phone]" type="text" value="+370 " id="phone"></td>
+                <td><input name="data[Inqury][phone]" type="text" value="+370 " id="phoneField"></td>
             </tr>
 
             <tr>
                 <td name="email">El. Paštas</td>
-                <td><input type="text" id="email"></td>
+                <td><input type="text" id="emailField"></td>
             </tr>
 
             <tr>
@@ -71,16 +71,12 @@
             +370 5 268 4422 (verslo klientams).<br>
         </div>
 
-        <table>
-            <tr>
-                <input type="submit" value="Siųsti" align="right">
+<table>
+            <tr
+                 valign="bottom" align="left"><input class="btn btn-default" type="submit" value="Siųsti">
             </tr>
-        </table>
 
-
-        <div align="right">
-
-        </div>
+</table>
     </form>
 
 </div>
