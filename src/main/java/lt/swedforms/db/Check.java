@@ -103,13 +103,23 @@ public class Check {
             System.out.println("----------All registrations of "+mail+":");
             while (rs.next()) {
 
-                String address = rs.getString("Address");
-                String date = rs.getString("Dates");
-                String topic = rs.getString("Topic");
+                String tempFirstname = rs.getString("FirstName");
+                String tempLastname = rs.getString("LastName");
+                String tempPhone = rs.getString("Phone");
+                String tempAddress = rs.getString("Address");
+                String tempDate = rs.getString("Dates");
+                String tempTime = rs.getString("Time");
+                String tempTopic = rs.getString("Topic");
+                String tempCOmment = rs.getString("Comment");
 
-                testArray.add(address);
-                testArray.add(date);
-                testArray.add(topic);
+                testArray.add(tempFirstname);
+                testArray.add(tempLastname);
+                testArray.add(tempPhone);
+                testArray.add(tempAddress);
+                testArray.add(tempDate);
+                testArray.add(tempTime);
+                testArray.add(tempTopic);
+                testArray.add(tempCOmment);
 
             }
 

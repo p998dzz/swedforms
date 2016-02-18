@@ -88,7 +88,7 @@ public class Write {
         //System.out.println("DONE");
     }//end main
 
-    public static void newRegistration(String mail, String date, String address, String topic) throws SQLException {
+    public static void newRegistration(String firstname, String lastname, String phone, String mail, String address, String date, String time, String topic, String comment) throws SQLException {
         Connection conn = null;
         Statement stmt = null;
         try {
@@ -108,24 +108,13 @@ public class Write {
 
             HashSet hs = new HashSet();
 
-            /**if (rs.next() != false) {
-             while (rs.next()) {
-             //Retrieve by column name
-             String id = rs.getString("mail");
-             hs.add(id);
-             }
-             } else {
-             System.out.println("Entry does not exist");
-
-             }*/
-
             //STEP 4: Insert records
 
             System.out.println("Inserting records into the table...");
             stmt = conn.createStatement();
 
-            String sql = "INSERT INTO Registrations (mail, Dates, Address, Topic) VALUES (" + " '" +
-                    mail + "' , " + " '" + date + "', '"+address+"' "+" ,'"+topic+"' );";
+            String sql = "INSERT INTO Registrations (mail, Dates, Address, Topic, FirstName, LastName, Phone, Time, Comment) VALUES (" + " '" +
+                    mail + "', '"+date+"', '"+address+"', '"+topic+"', '"+firstname+"', '"+lastname+"', '"+phone+"', '"+time+"', '"+comment+"' );";
             System.out.println(sql);
             stmt.executeUpdate(sql);
 
