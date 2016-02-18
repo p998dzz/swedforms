@@ -64,6 +64,8 @@ appControllers.controller('newRegistrationController', function($scope, $http, $
 
 appControllers.controller('ContactUsController', function($scope, $http, $rootScope, $window) {
        $scope.contact = function() {
+               var topic = $("#topicSelect").val();
+               var message = $("#messageField").val();
                var name = $( "#nameField" ).val();
                var lastname = $( "#lastnameField" ).val();
                var telNumber = $( "#phoneField" ).val();
@@ -71,22 +73,20 @@ appControllers.controller('ContactUsController', function($scope, $http, $rootSc
 
                $http({
                    method: 'POST',
-                 //  url: $rootScope.url+'/authenticate',  sitoj vietoj nelabai suprantu koki uml rasyt
-                   data: { "name":name, "lastname": lastname, "telNumber":telNumber, "email": email}
+                 //  url: $rootScope.url+'/createContact',  sitoj vietoj nelabai suprantu koki uml rasyt
+                   data: { "topic":topic, "message":message, "name":name, "lastname": lastname, "telNumber":telNumber, "email": email}
                }).then(function successCallback(response) { //nezinau dar kaip ta dali nuo then keist reik
-                             if(response.data != "null")
+                             if(response.data != "OK")
                              {
-                                $rootScope.user = response.data;
                                 $window.location.href = '/#/confirmation';
                              }else
                              {
-                                alert("Neteisingas vartotojas arba slaptažodis");
+                                alert("Įvyko klaida:");
                              }
                            }, function errorCallback(response) {
                                 alert("Problemos su interneto ryšiu");
                            });
-
-                //$window.location.href = '/home';
+                           
              }
 });
 
