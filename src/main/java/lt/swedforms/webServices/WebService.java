@@ -1,6 +1,5 @@
 package lt.swedforms.webServices;
 
-import lt.swedforms.Controllers.Creator;
 import lt.swedforms.Controllers.DataPreparer;
 import lt.swedforms.Controllers.Finder;
 import lt.swedforms.transferObjects.Login;
@@ -27,7 +26,7 @@ public class WebService {
     public String createUser(@RequestBody final Login person) {
         String user = Finder.checkPersonExistence(person);
         if(user == null)
-            user = Creator.createUser(person);
+            user = "jhjj";
         return user;
     }
 
