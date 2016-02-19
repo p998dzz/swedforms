@@ -34,7 +34,7 @@ public class WebService {
             {
                 userIdentification+=rand.nextLong();
             }
-            Write.UpdateRandom(person.getEmail(), ip, userIdentification);
+            //Write.UpdateRandom(person.getEmail(), ip, userIdentification);
             return userIdentification;
         }
         return "null";
@@ -42,7 +42,7 @@ public class WebService {
 
     @RequestMapping(value = "/createUser", method = RequestMethod.POST)
     public String createUser(@RequestBody final Login person) {
-        boolean user = Write.newUserRegistration(person.getEmail(), person.getPass());
+        //boolean user = Write.newUserRegistration(person.getEmail(), person.getPass());
         return "fsdf";
     }
 

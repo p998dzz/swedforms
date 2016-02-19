@@ -1,6 +1,11 @@
 package lt.swedforms.db;//STEP 1. Import required packages
 
-import java.sql.*;
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Statement;
+
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashSet;
 
 public class Write {
@@ -12,7 +17,7 @@ public class Write {
     static final String USER = "sql2107174";
     static final String PASS = "pT2!gA6*";
 
-    public static boolean newUserRegistration(String mail, String password) throws SQLException {
+    public static boolean newUserRegistration(String mail, String password){
         Connection conn = null;
         Statement stmt = null;
         Boolean result = true;
@@ -23,12 +28,12 @@ public class Write {
 
             //STEP 3: Open a connection
             //System.out.println("Connecting to a selected database...");
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            conn = (Connection) DriverManager.getConnection(DB_URL, USER, PASS);
             //System.out.println("Connected database successfully...");
 
             //STEP 3.5 check for dublicates
 
-            stmt = conn.createStatement();
+            stmt = (Statement) conn.createStatement();
             String sql2 = "SELECT * FROM `users` WHERE 1";
             ResultSet rs = stmt.executeQuery(sql2);
 
@@ -53,7 +58,7 @@ public class Write {
                 result = false;
             } else {
                 //System.out.println("Inserting records into the table...");
-                stmt = conn.createStatement();
+                stmt = (Statement) conn.createStatement();
 
                 String sql = "INSERT INTO users (mail, password) VALUES (" + " '" +
                         mail + "' , " + " '" + password + "');";
@@ -88,7 +93,7 @@ public class Write {
         //System.out.println("DONE");
     }//end main
 
-    public static void newRegistration(String firstname, String lastname, String phone, String mail, String address, String date, String time, String topic, String comment) throws SQLException {
+    public static void newRegistration(String firstname, String lastname, String phone, String mail, String address, String date, String time, String topic, String comment){
         Connection conn = null;
         Statement stmt = null;
         try {
@@ -97,12 +102,12 @@ public class Write {
 
             //STEP 3: Open a connection
             //System.out.println("Connecting to a selected database...");
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            conn = (Connection) DriverManager.getConnection(DB_URL, USER, PASS);
             //System.out.println("Connected database successfully...");
 
             //STEP 3.5 check for dublicates
 
-            stmt = conn.createStatement();
+            stmt = (Statement) conn.createStatement();
             String sql2 = "SELECT * FROM `Registrations` WHERE 1";
             ResultSet rs = stmt.executeQuery(sql2);
 
@@ -111,7 +116,7 @@ public class Write {
             //STEP 4: Insert records
 
             //System.out.println("Inserting records into the table...");
-            stmt = conn.createStatement();
+            stmt = (Statement) conn.createStatement();
 
             String sql = "INSERT INTO Registrations (mail, Dates, Address, Topic, FirstName, LastName, Phone, Time, Comment) VALUES (" + " '" +
                     mail + "', '"+date+"', '"+address+"', '"+topic+"', '"+firstname+"', '"+lastname+"', '"+phone+"', '"+time+"', '"+comment+"' );";
@@ -142,7 +147,7 @@ public class Write {
         }//end try
         //System.out.println("DONE");
     }//end main
-    public static boolean newRand(String mail, int rand) throws SQLException {
+    public static boolean newRand(String mail, int rand){
         Connection conn = null;
         Statement stmt = null;
         Boolean result = true;
@@ -153,12 +158,12 @@ public class Write {
 
             //STEP 3: Open a connection
             //System.out.println("Connecting to a selected database...");
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            conn = (Connection) DriverManager.getConnection(DB_URL, USER, PASS);
             //System.out.println("Connected database successfully...");
 
             //STEP 3.5 check for dublicates
 
-            stmt = conn.createStatement();
+            stmt = (Statement) conn.createStatement();
             String sql2 = "SELECT * FROM `users` WHERE 1";
             ResultSet rs = stmt.executeQuery(sql2);
 
@@ -179,7 +184,7 @@ public class Write {
 
             if (hs.contains(mail)) {
                 //System.out.println("----------Entry allrady exists");
-                stmt = conn.createStatement();
+                stmt = (Statement) conn.createStatement();
                 String sql = "UPDATE users SET Rand="+"'"+rand+"'"+"WHERE mail="+"'"+mail+"';";
                 stmt.executeUpdate(sql);
                 //System.out.println(sql);
