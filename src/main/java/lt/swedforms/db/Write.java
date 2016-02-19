@@ -143,7 +143,7 @@ public class Write {
         }//end try
         //System.out.println("DONE");
     }//end main
-    public static boolean newRand(String mail, int rand){
+    public static boolean newRand(String mail, String rand){
         Connection conn = null;
         Statement stmt = null;
         Boolean result = true;

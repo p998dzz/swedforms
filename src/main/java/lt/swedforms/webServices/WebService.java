@@ -3,6 +3,7 @@ package lt.swedforms.webServices;
 import lt.swedforms.Controllers.DataPreparer;
 import lt.swedforms.db.Check;
 import lt.swedforms.db.Write;
+import lt.swedforms.transferObjects.ContactUs;
 import lt.swedforms.transferObjects.Login;
 import lt.swedforms.transferObjects.Registration;
 import lt.swedforms.transferObjects.UserData;
@@ -34,16 +35,20 @@ public class WebService {
             {
                 userIdentification+=rand.nextLong();
             }
-            //Write.UpdateRandom(person.getEmail(), ip, userIdentification);
+            Write.newRand(person.getEmail(), ip);
             return userIdentification;
         }
-        return "null";
+        return null;
     }
 
     @RequestMapping(value = "/createUser", method = RequestMethod.POST)
-    public String createUser(@RequestBody final Login person) {
-        //boolean user = Write.newUserRegistration(person.getEmail(), person.getPass());
-        return "ffsdf";
+    public String createUser(@RequestBody final Login person, HttpServletRequest request) {
+        if (Write.newUserRegistration(person.getEmail(), person.getPass())) {
+            return authenticate(person, request);
+        }
+        else{
+            return null;
+        }
     }
 
     @RequestMapping(value = "/createRegistration", method = RequestMethod.POST)
@@ -57,10 +62,10 @@ public class WebService {
         List<Registration> registrations = DataPreparer.parseRegistrations(registrationRaw);
         for(Registration reg : registrations )
         {
-            if(reg.getTime().equals(newRegistration.getTime()) && reg.getDate().equals(newRegistration.getDate()))
+           // if(reg.getTime().equals(newRegistration.getTime()) && reg.getDate().equals(newRegistration.getDate()))
                 return "DATETIME_DUPLICATE";
-        }
-        Write.newRegistration("","","","");*/
+        }*/
+       // Write.newRegistration("","","","");
         return "OK";
     }
 
@@ -78,6 +83,16 @@ public class WebService {
         if(person.getUser() != null)
         {
             return DataPreparer.prepareForRegistration();
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "/createContactUs", method = RequestMethod.POST)
+    public String createContactUs(@RequestBody final ContactUs newContacting) {
+        if(newContacting.getUser() != null)
+        {
+
+            return "OK";
         }
         return null;
     }
