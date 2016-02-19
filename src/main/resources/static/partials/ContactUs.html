@@ -3,20 +3,14 @@
     <title>Parašykite mums</title>
 </head>
 
-
+<h1>Parašykite mums</h1>
 <div align="center" action="action_page.php">
     <form  ng-submit="contact()">
-
         <table>
-            <tr>
-                <td>
-                    <h2>Parašykite mums</h2>
-                </td>
-            </tr>
             <tr>
                 <td>Tema</td>
                 <td>
-                    <select>
+                    <select id="topicSelect">
                         <option value="Nepasirinkta" selected>Nepasirinkta</option>
                         <option value="Taupymas ir investavimas">Taupymas ir investavimas</option>
                         <option value="Pensijos ir kaupimas">Pensijos ir kaupimas</option>
@@ -30,7 +24,7 @@
 
             <tr>
                 <td>Žinutės tekstas</td>
-                <td><textarea maxlength="400" name="question" style="height:80px; width: 270px;" id="message" cols="60"
+                <td><textarea maxlength="400" name="question" style="height:80px; width: 270px;" id="messageField" cols="60"
                               rows="10"></textarea></td>
             </tr>
 
@@ -68,18 +62,21 @@
 
             <tr>
                 <td colspan="2">
-                Į pateiktus klausimus atsakome darbo dienomis 8-20 val., šeštadieniais 9-16 valandomis.<br>Jeigu jums
-                reikalinga
-                skubi informacija, laukiame jūsų skambučių tel. 1884 (privatiems<br>
-                klientams) bei 1633 (verslo klientams). Iš užsienio skambinkite tel. +370 5 268 444<br>(privatiems
-                klientams) bei
-                +370 5 268 4422 (verslo klientams).<br>
+                    Į pateiktus klausimus atsakome darbo dienomis 8-20 val., šeštadieniais 9-16 valandomis.<br>Jeigu jums
+                    reikalinga
+                    skubi informacija, laukiame jūsų skambučių tel. 1884 (privatiems<br>
+                    klientams) bei 1633 (verslo klientams). Iš užsienio skambinkite tel. +370 5 268 444<br>(privatiems
+                    klientams) bei
+                    +370 5 268 4422 (verslo klientams).<br>
                 </td>
             </tr>
 
 
             <tr>
-                <td valign="bottom" align="left"><input class="btn btn-default"  type="button" value="Grįžti"></td>
+                <td valign="bottom" align="left" >
+
+                    <button class="btn btn-default" ng-click="cancel()">Atšaukti</button>
+                </td>
                 <td valign="bottom" align="right"><input class="btn btn-default" type="submit" value="Siųsti"></td>
             </tr>
 

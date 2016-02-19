@@ -4,17 +4,16 @@
 </head>
 
 <div align="center">
-    <form ng-submit="register()" >
+    <form ng-submit="register()">
         <table class="registrationTable">
-            <tr>
-                <td colspan="2">
-                    <h2>Registruokitės konsultacijai internetu</h2>
-                </td>
-            </tr>
+
+            <h1>Registruokitės konsultacijai internetu</h1>
 
             <tr>
                 <td><div class = "field">Vardas *</div></td>
-                <td><input class="field" id="nameField" type="text"></td>
+                <td><input class="field" id="nameField" type="text" required
+                           oninvalid="this.setCustomValidity('Witinnovation')"
+                           oninput="setCustomValidity('')"></td>
             </tr>
             <tr>
                 <td><div class = "field">Pavardė *</div></td>
@@ -22,63 +21,57 @@
             </tr>
             <tr>
                 <td><div class = "field">Telefonas susisiekti *</div></td>
-                <td><input class="field" id="telNumberField" type="text"></td>
+                <td><input name="phone" type="text" value="+370 " id="phoneField" required pattern="[0-9]{8}" oninvalid="Neteisingas numeris"></td>
+                <!--<input type="text" required="" pattern="[+370 ][0-9]{10}" value="" title="This is an error message" />-->
             </tr>
             <tr>
                 <td><div class = "field">El paštas *</div></td>
                 <td><input class="field" id="emailField" type="text"></td>
             </tr>
-
             <tr>
+                <td>Banko skyrius</td>
                 <td>
-                    <label for="unit">Banko skyrius</label></td>
-                <td>
-                    <select name="bankUnits" id = "unit">
-                        <option value="antakalnio45">Antakalnio g. 45</option>
-                        <option value="ateities91">Ateities g. 91 (PC „Mandarinas") </option>
-                        <option value="fiat">Gedimino pr. 56 ;</option>
-                        <option value="konstitucijos20">Konstitucijos pr. 20A, dirba Būsto Centras</option>
-                        <option value="ozo25">Ozo g. 25 (PPC „Akropolis")</option>
+                    <select id="unitSelect">
+                        <option value="Nepasirinkta" selected>Nepasirinkta</option>
+                        <option value="Antakalnio45">Antakalnio g. 45</option>
+                        <option value="Ateities91">Ateities g. 91 (PC „Mandarinas")</option>
+                        <option value="Gedimino56">Gedimino pr. 56</option>
+                        <option value="Konstitucijos20A">Konstitucijos pr. 20A, dirba Būsto Centras</option>
+                        <option value="Ozo25">Ozo g. 25 (PPC „Akropolis")</option>
                     </select>
                 </td>
             </tr>
-
             <tr>
                 <td><div class = "date">Data</div></td>
-                <td><input class="field" type="date"></td>
+                <td><input class="field" id="dateField" type="date"></td>
             </tr>
 
+            <!--//time reik iterpt-->
             <tr>
-                <td>
-                    <label for="topic">Tema</label></td>
-                <td>
-                    <select name="topic" id = "topic">
-                        <option value="taupymas">Taupymas ir investavimas</option>
-                        <option value="pensijos">Pensijos ir kaupimas</option>
-                        <option value="gyvybes">Gyvybės draudimas</option>
-                        <option value="negyvybes">Ne gyvybės draudimas</option>
-                        <option value="paskolos">Paskolos, lizingas</option>
-                        <option value="kasdieniu">Kasdienių finansų valdymas</option>
-                    </select>
-                </td>
+            <td>Tema</td>
+            <td>
+                <select id="topicSelect">
+                    <option value="Nepasirinkta" selected>Nepasirinkta</option>
+                    <option value="Taupymas ir investavimas">Taupymas ir investavimas</option>
+                    <option value="Pensijos ir kaupimas">Pensijos ir kaupimas</option>
+                    <option value="Gyvybės draudimas">Gyvybės draudimas</option>
+                    <option value="Ne gyvybės draudimas">Ne gyvybės draudimas</option>
+                    <option value="Paskolos, lizingas">Paskolos, lizingas</option>
+                    <option value="Kasdieninių finansų valdymas">Kasdienių finansų valdymas</option>
+                </select>
+            </td>
             </tr>
-
             <tr>
                 <td><div clas="field long">Pastabos, komentarai</div></td>
-                <td><textarea id="textField" cols="60" rows="10"></textarea></td>
+                <td><textarea id="commentField" cols="60" rows="10"></textarea></td>
             </tr>
-
-           <!--<tr><td align="bottom" align="right"> <button ng-submit="register()" class="btn btn-default" type="submit">Click Me!</button></td></tr>-->
-            <!--<tr><td><button class="editbtn">Siųsti</button></td></tr>-->
             <tr>
-            <td valign="bottom" align="left"><input class="btn btn-default" type="button" value="Grįžti"></td>
-            <td valign="bottom" align="right"><input class="btn btn-default" type="submit" value="Siųsti"></td>
+                <td valign="bottom" align="left" >
+                    <button class="btn btn-default" ng-click="cancel()">Atšaukti</button>
+                </td>
+                <td valign="bottom" align="right"><input class="btn btn-default" type="submit" value="Siųsti"></td>
             </tr>
-            <!--<div style="bottom">-->
-                <!--<a ng-submit="register()" class="btn btn-default" type="submit">Siūsti</a>-->
-            <!--</div>-->
 
         </table>
     </form>
-
 </div>
