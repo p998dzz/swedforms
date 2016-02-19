@@ -1,7 +1,6 @@
 package lt.swedforms.db;//STEP 1. Import required packages
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.TreeSet;
 
@@ -26,12 +25,12 @@ public class Read {
 
             //STEP 3: Open a connection
             System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            conn = (Connection) DriverManager.getConnection(DB_URL, USER, PASS);
             System.out.println("Connection Sucesfull");
 
             //STEP 4: Execute a query
             System.out.println("Creating statement...");
-            stmt = conn.createStatement();
+            stmt = (Statement) conn.createStatement();
 
             String sql = "SELECT * FROM `users` WHERE 1";
             ResultSet rs = stmt.executeQuery(sql);
