@@ -2,6 +2,7 @@ var appControllers = angular.module('controllers', []);
 
 appControllers.controller('loginController', function($scope, $http, $rootScope, $window) {
     $rootScope.url = "http://localhost:8080";
+
     $scope.login = function() {
        var email = $( "#emailField" ).val();
        var password = $( "#passwordField" ).val();
@@ -10,7 +11,7 @@ appControllers.controller('loginController', function($scope, $http, $rootScope,
            url: $rootScope.url+'/authenticate',
            data: { "email": email, "pass": password }
        }).then(function successCallback(response) {
-                     if(response.data != "null")
+                     if(response.data != "")
                      {
                         $rootScope.user = response.data;
                         $window.location.href = '/#/home';
@@ -34,7 +35,42 @@ appControllers.controller('homeController', function($scope, $http, $rootScope, 
 });
 
 appControllers.controller('newRegistrationController', function($scope, $http, $rootScope, $window) {
+    $http({
+               method: 'GET',
+               url: $rootScope.url+'/getDataForRegistration'
+           }).then(function successCallback(response) {
+                         if(response.data != "")
+                         {
+                             $scope.data = response.data;
+                             $scope.possibleDates = new Array();
+                             for(var i = 0; i < $scope.possibleDates.lenght; i++)
+                             {
+                                possibleDates.push($scope.possibleDates[i].date);
+                             }
+                             $("#dates").datepicker({
+                                beforeShowDay:
+                             });
+                         }else
+                         {
 
+                         }
+                       }, function errorCallback(response) {
+                            alert("Problemos su interneto ryšiu");
+                       });
+    $scope.dateOnClick = function(){
+        /*paimi reiksme;
+        uzpildai dienom
+        for(var i = 0; i < $scope.data; i++)
+         {
+                if(tavoreiksme == $scope.data[i].date)
+                {
+                    var times = $scope.data[i].time;
+                    sugrusti i selecta;
+                    break;
+                }
+         }
+         */
+    }
     $scope.register = function() {
            var name = $( "#nameField" ).val();
            var surname = $( "#surnameField" ).val();
