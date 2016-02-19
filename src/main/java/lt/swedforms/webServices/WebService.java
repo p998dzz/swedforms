@@ -52,12 +52,14 @@ public class WebService {
     }
 
     @RequestMapping(value = "/createRegistration", method = RequestMethod.POST)
-    public String createRegistration(@RequestBody final Registration newRegistration) {
+    public String createRegistration(@RequestBody final Registration newRegistration, HttpServletRequest request) {
+
+
         return "nothing at all";
     }
 
     @RequestMapping(value = "/checkRegistration", method = RequestMethod.POST)
-    public String checkRegistration(@RequestBody final Registration newRegistration) {
+    public String checkRegistration(@RequestBody final Registration newContactUsRegistration) {
        /* List<String[]> registrationRaw = Check.checkRegistrations(Check.checkEandom(person.getUser()));
         List<Registration> registrations = DataPreparer.parseRegistrations(registrationRaw);
         for(Registration reg : registrations )
