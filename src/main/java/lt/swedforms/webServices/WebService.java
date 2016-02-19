@@ -43,7 +43,7 @@ public class WebService {
     @RequestMapping(value = "/createUser", method = RequestMethod.POST)
     public String createUser(@RequestBody final Login person) {
         //boolean user = Write.newUserRegistration(person.getEmail(), person.getPass());
-        return "fsdf";
+        return "ffsdf";
     }
 
     @RequestMapping(value = "/createRegistration", method = RequestMethod.POST)
