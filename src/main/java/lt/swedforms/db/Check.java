@@ -12,6 +12,7 @@ import java.util.TreeSet;
 
 public class Check {
     // JDBC driver name and database URL
+    // openshift address
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_URL =
             "jdbc:mysql://sql2.freemysqlhosting.net/sql2107174";
