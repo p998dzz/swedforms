@@ -1,17 +1,14 @@
 package lt.swedforms.db;//STEP 1. Import required packages
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
 
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.TreeSet;
 
 public class Check {
     // JDBC driver name and database URL
+    // openshift address
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_URL =
             "jdbc:mysql://sql2.freemysqlhosting.net/sql2107174";

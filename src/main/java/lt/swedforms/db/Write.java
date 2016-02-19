@@ -1,11 +1,7 @@
 package lt.swedforms.db;//STEP 1. Import required packages
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
 
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.HashSet;
 
 public class Write {
