@@ -12,6 +12,7 @@ public class NewRegistration {
     private String date;
     private String time;
     private String topic;
+    private String comment;
     private User user;
 
     public NewRegistration(String name, String lastName, String phoneNumber, String email, String unit, String date, String time, String topic, User user) {
@@ -88,6 +89,14 @@ public class NewRegistration {
 
     public void setTopic(String topic) {
         this.topic = topic;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public User getUser() {

@@ -3,7 +3,7 @@ package lt.swedforms.transferObjects;
 /**
  * Created by Super on 2/18/2016.
  */
-public class Registration {
+public class ContactUsRegistration {
 
     private String topic;
     private String message;
