@@ -1,12 +1,14 @@
 package lt.swedforms.webServices;
 
 import lt.swedforms.Controllers.DataPreparer;
-import lt.swedforms.db.Check;
-import lt.swedforms.db.Write;
+import lt.swedforms.repositories.ContactUsRepository;
+import lt.swedforms.repositories.RegistrationRepository;
+import lt.swedforms.repositories.UserRepository;
 import lt.swedforms.transferObjects.ContactUs;
 import lt.swedforms.transferObjects.Login;
 import lt.swedforms.transferObjects.Registration;
 import lt.swedforms.transferObjects.UserData;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Super on 2/17/2016.
@@ -24,9 +25,16 @@ import java.util.Random;
 @SpringBootApplication
 public class WebService {
 
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private RegistrationRepository registrationrepository;
+    @Autowired
+    private ContactUsRepository contactUsRepository;
+
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public String authenticate(@RequestBody final Login person, HttpServletRequest request) {
-        if(person.getPass().equals(Check.checkPassword(person.getEmail())))
+        /*if(person.getPass().equals(repository.checkPassword(person.getEmail())))
         {
             String ip = request.getRemoteAddr();
             Random rand = new Random();
@@ -37,18 +45,19 @@ public class WebService {
             }
             Write.newRand(person.getEmail(), ip);
             return userIdentification;
-        }
+        }*/
         return null;
     }
 
     @RequestMapping(value = "/createUser", method = RequestMethod.POST)
     public String createUser(@RequestBody final Login person, HttpServletRequest request) {
-        if (Write.newUserRegistration(person.getEmail(), person.getPass())) {
+        /*if (Write.newUserRegistration(person.getEmail(), person.getPass())) {
             return authenticate(person, request);
         }
         else{
             return null;
-        }
+        }*/
+        return null;
     }
 
     @RequestMapping(value = "/createRegistration", method = RequestMethod.POST)
