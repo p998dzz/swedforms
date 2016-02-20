@@ -9,28 +9,31 @@
 
             <h1>Registruokitės konsultacijai internetu</h1>
 
+
+
             <tr>
                 <td><div class = "field">Vardas *</div></td>
-                <td><input class="field" id="nameField" type="text" required
-                           oninvalid="this.setCustomValidity('Witinnovation')"
-                           oninput="setCustomValidity('')"></td>
+                <td colspan="2"><input class="field" id="nameField" type="text" required
+                                       oninvalid="this.setCustomValidity('Witinnovation')"
+                                       oninput="setCustomValidity('')"></td>
             </tr>
             <tr>
                 <td><div class = "field">Pavardė *</div></td>
-                <td><input class="field" id="surnameField" type="text"></td>
+                <td colspan="2"><input class="field" id="surnameField" type="text"></td>
             </tr>
             <tr>
                 <td><div class = "field">Telefonas susisiekti *</div></td>
-                <td><input name="phone" type="text" value="+370 " id="phoneField" required pattern="[0-9]{8}" oninvalid="Neteisingas numeris"></td>
+                <td colspan="2"><input name="phone" type="text" value="+370 " id="phoneField" required pattern="[0-9]{8}" oninvalid="Neteisingas numeris"></td>
                 <!--<input type="text" required="" pattern="[+370 ][0-9]{10}" value="" title="This is an error message" />-->
             </tr>
             <tr>
                 <td><div class = "field">El paštas *</div></td>
-                <td><input class="field" id="emailField" type="text"></td>
+                <td colspan="2"><input class="field" id="emailField" type="text"></td>
             </tr>
+
             <tr>
                 <td>Banko skyrius</td>
-                <td>
+                <td colspan="2">
                     <select id="unitSelect">
                         <option value="Nepasirinkta" selected>Nepasirinkta</option>
                         <option value="Antakalnio45">Antakalnio g. 45</option>
@@ -41,15 +44,16 @@
                     </select>
                 </td>
             </tr>
+
             <tr>
                 <td><div class = "date">Data</div></td>
-                <td><input class="field" id="dateField" type="date"></td>
-            </tr>
+                <td><input id="dateField"/></td>
+                <td>
+                    <select ng-init="dayOnClick" id="timeField">   </select></td>
 
-            <!--//time reik iterpt-->
-            <tr>
+            </tr>
             <td>Tema</td>
-            <td>
+            <td colspan="2">
                 <select id="topicSelect">
                     <option value="Nepasirinkta" selected>Nepasirinkta</option>
                     <option value="Taupymas ir investavimas">Taupymas ir investavimas</option>
@@ -61,17 +65,23 @@
                 </select>
             </td>
             </tr>
+
             <tr>
                 <td><div clas="field long">Pastabos, komentarai</div></td>
-                <td><textarea id="commentField" cols="60" rows="10"></textarea></td>
+                <td colspan="2"><textarea id="commentField" cols="60" rows="10"></textarea></td>
             </tr>
+
             <tr>
-                <td valign="bottom" align="left" >
+
+                <td colspan="2" valign="bottom" align="left" >
+
                     <button class="btn btn-default" ng-click="cancel()">Atšaukti</button>
                 </td>
                 <td valign="bottom" align="right"><input class="btn btn-default" type="submit" value="Siųsti"></td>
             </tr>
 
+
         </table>
     </form>
+
 </div>
