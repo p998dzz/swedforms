@@ -1,5 +1,8 @@
 package lt.swedforms.Entities;
+
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+
 /**
  * Created by Super on 2/19/2016.
  */
@@ -8,6 +11,7 @@ public class User {
     @Id
     private String id;
 
+    @Indexed(unique=true)
     private String email;
     private String pass;
     private String ip;
@@ -24,5 +28,9 @@ public class User {
     {
         this.random = random;
         this.ip = ip;
+    }
+
+    public String getIp(){
+        return this.ip;
     }
 }

@@ -40,6 +40,22 @@ appControllers.controller('homeController', function($scope, $http, $rootScope, 
 });
 
 appControllers.controller('newRegistrationController', function($scope, $http, $rootScope, $window) {
+    $http({
+       method: 'POST',
+       url: $rootScope.url+'/getDataForRegistration',
+       data: {"user" : $rootScope.user}
+   }).then(function successCallback(response) { //nezinau dar kaip ta dali nuo then keist reik
+                 if(response.data != "")
+                 {
+                    $scope.dates = response.data;
+                 }else
+                 {
+                    alert("Įvyko klaida");
+                 }
+               }, function errorCallback(response) {
+                    alert("Problemos su interneto ryšiu");
+               });
+
 
     $scope.register = function() {
            var name = $( "#nameField" ).val();
@@ -120,28 +136,27 @@ appControllers.controller('newUserController', function($scope, $http, $rootScop
     $scope.ureg = function() {
            var email = $( "#emailField" ).val();
            var password = $( "#passwordField" ).val();
-
            $http({
                method: 'POST',
-              // url: $rootScope.url+'/',
+               url: $rootScope.url+'/createUser',
                data: { "email": email, "pass": password}
            }).then(function successCallback(response) {
-                         if(response.data != "OK")
+                         if(response.data == "")
                          {
-
                             $window.location.href = '/#/';
                          }else
                          {
-                            alert("Neteisingas vartotojas arba slaptažodis");
+                            $rootScope.user = response.data;
+                            $window.location.href = '/#/home';
                          }
                        }, function errorCallback(response) {
                             alert("Problemos su interneto ryšiu");
                        });
-        }
+        };
 
 $scope.cancel = function() {
             $window.location.href = '/#/';
-            }
+            };
 });
 
 appControllers.controller('overviewController', function($scope, $http, $rootScope, $window) {

@@ -5,6 +5,19 @@ var swedApp =  angular.module('UserForms', [
 
 swedApp.config(['$routeProvider',
   function($routeProvider, $rootScope) {
+    if($rootScope.user == null)
+    {
+        $routeProvider.
+          when('/', {
+            templateUrl: 'partials/login.html',
+            controller: 'loginController'
+          }).when('/newUser', {
+            templateUrl: 'partials/newUser.html',
+            controller: 'newUserController'
+         }).otherwise({
+             redirectTo: '/'
+           });
+    }
     $routeProvider.
       when('/', {
         templateUrl: 'partials/login.html',
