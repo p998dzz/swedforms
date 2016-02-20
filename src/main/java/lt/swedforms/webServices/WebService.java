@@ -5,8 +5,8 @@ import lt.swedforms.repositories.ContactUsRepository;
 import lt.swedforms.repositories.RegistrationRepository;
 import lt.swedforms.repositories.UserRepository;
 import lt.swedforms.transferObjects.ContactUs;
-import lt.swedforms.transferObjects.Login;
-import lt.swedforms.transferObjects.Registration;
+import lt.swedforms.transferObjects.ContactUsRegistration;
+import lt.swedforms.transferObjects.User;
 import lt.swedforms.transferObjects.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -33,7 +33,7 @@ public class WebService {
     private ContactUsRepository contactUsRepository;
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    public String authenticate(@RequestBody final Login person, HttpServletRequest request) {
+    public String authenticate(@RequestBody final User person, HttpServletRequest request) {
         /*if(person.getPass().equals(repository.checkPassword(person.getEmail())))
         {
             String ip = request.getRemoteAddr();
@@ -50,7 +50,7 @@ public class WebService {
     }
 
     @RequestMapping(value = "/createUser", method = RequestMethod.POST)
-    public String createUser(@RequestBody final Login person, HttpServletRequest request) {
+    public String createUser(@RequestBody final User person, HttpServletRequest request) {
         /*if (Write.newUserRegistration(person.getEmail(), person.getPass())) {
             return authenticate(person, request);
         }
@@ -61,12 +61,14 @@ public class WebService {
     }
 
     @RequestMapping(value = "/createRegistration", method = RequestMethod.POST)
-    public String createRegistration(@RequestBody final Registration newRegistration) {
+    public String createRegistration(@RequestBody final ContactUsRegistration newRegistration, HttpServletRequest request) {
+
+
         return "nothing at all";
     }
 
     @RequestMapping(value = "/checkRegistration", method = RequestMethod.POST)
-    public String checkRegistration(@RequestBody final Registration newRegistration) {
+    public String checkRegistration(@RequestBody final ContactUsRegistration newContactUsRegistration) {
        /* List<String[]> registrationRaw = Check.checkRegistrations(Check.checkEandom(person.getUser()));
         List<Registration> registrations = DataPreparer.parseRegistrations(registrationRaw);
         for(Registration reg : registrations )
@@ -76,15 +78,6 @@ public class WebService {
         }*/
        // Write.newRegistration("","","","");
         return "OK";
-    }
-
-    @RequestMapping(value = "/getDataForContacting", method = RequestMethod.POST)
-    public List<List<String>> getDataForContacting(@RequestBody final UserData person) {
-        if(person.getUser() != null)
-        {
-            return DataPreparer.prepareForContacting();
-        }
-        return null;
     }
 
     @RequestMapping(value = "/getDataForRegistration", method = RequestMethod.POST)

@@ -36,7 +36,6 @@ public class AppApplication implements CommandLineRunner {
         // save a couple of customers
         User user = new User("test@test.lt", "test");
         userRepository.save(user);
-
         registrationRepository.save(new Registration(userRepository.findByEmail("test@test.lt"),new Date(),"","","","","",""));
         // fetch all customers
         // fetch an individual customer
