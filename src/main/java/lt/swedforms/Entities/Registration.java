@@ -32,4 +32,8 @@ public class Registration {
         this.name = name;
         this.surname = surname;
     }
+
+    public Date getDate() {
+        return date;
+    }
 }
