@@ -232,7 +232,7 @@ $scope.cancel = function() {
 appControllers.controller('overviewController', function($scope, $http, $rootScope, $window) {
 $http({
          method: 'GET',
-         //url: $rootScope.url+'/getRegistrations'
+         url: $rootScope.url+'/getRegistrations'
          }).then(function successCallback(response) {
               if(response.data != "")
               {
