@@ -1,6 +1,5 @@
 var appControllers = angular.module('controllers', []);
 
-
 appControllers.controller('loginController', function($scope, $http, $rootScope, $window) {
     $rootScope.url = "http://localhost:8080";
 
@@ -116,19 +115,19 @@ appControllers.controller('newRegistrationController', function($scope, $http, $
            var surname = $( "#surnameField" ).val();
            var phone = $( "#phoneField" ).val();
            var email = $( "#emailField" ).val();
-           var unit = $("#unitSelect").val();
+           var unit =  $("#unitSelect").val();
            var date = $("#dateField").val();
           // var time = $("#timeSelect").val();
            var topic = $("#topicSelect").val();
            var comment = $("#commentField").val();
 
             $rootScope.regData = { "name":name, "surname": surname, "phone":phone, "email": email, "unit":unit, "date": date,
-            "topic": topic, "comment": comment, "user": rootScope.user };
+            "topic": topic, "comment": comment, "user": rootScope.user }
            $http({
                method: 'POST',
-              // url: $rootScope.url+'/checkRegistration',  sitoj vietoj nelabai suprantu koki uml rasyt
+              // url: $rootScope.url+'/checkRegistration',
                data: $rootScope.regData
-           }).then(function successCallback(response) { //nezinau dar kaip ta dali nuo then keist reik
+           }).then(function successCallback(response) {
                          if(response.data == "OK")
                          {
                             $window.location.href = '/#/home';  //siaip turetu eit i registration confirmation
@@ -141,7 +140,7 @@ appControllers.controller('newRegistrationController', function($scope, $http, $
                        });
     }
     $scope.cancel = function() {
-           $window.location.href = '/#/overview'; //jei pakeisim psl tai i overview
+           $window.location.href = '/#/overview';
     }
 });
 
@@ -169,8 +168,9 @@ appControllers.controller('ContactUsController', function($scope, $http, $rootSc
 
                $http({
                    method: 'POST',
-                 //  url: $rootScope.url+'/createContact',  sitoj vietoj nelabai suprantu koki uml rasyt
-                   data: { "topic":topic, "message":message, "name":name, "lastname": lastname, "phone":phone, "email": email, "radio":radio, "user": rootScope.user}
+                 //  url: $rootScope.url+'/createContact',
+                   data: { "topic":topic, "message":message, "name":name, "lastname": lastname,
+                   "phone":phone, "email": email, "radio":radio, "user": rootScope.user}
                                   }).then(function successCallback(response) {
                              if(response.data == "OK")
                              {
@@ -183,7 +183,7 @@ appControllers.controller('ContactUsController', function($scope, $http, $rootSc
                                 alert("Problemos su interneto ryšiu");
                            });
 
-               }
+               };
 
        $scope.cancel = function() {
                $window.location.href = '/#/home';
@@ -216,7 +216,7 @@ appControllers.controller('newUserController', function($scope, $http, $rootScop
                             alert("Jau egzisyuoja toks vartotojas");
 
                             $rootScope.user = response.data;
-                        //    $window.location.href = '/#/home'; kodel domantai cia padarei kad siustu?
+                        //    $window.location.href = '/#/home'; kodel domantai cia padarei kad siustu i home?
 
                          }
                        }, function errorCallback(response) {
@@ -234,4 +234,24 @@ appControllers.controller('overviewController', function($scope, $http, $rootSco
 $scope.regi = function() {
         $window.location.href = '/#/newRegistration';
      }
+});
+
+appControllers.controller('registrationConfirmController', function($scope, $http, $rootScope, $window) {
+
+//$rootScope.regData = { "name":name, "surname": surname, "phone":phone, "email": email, "unit":unit, "date": date,
+//            "topic": topic, "comment": comment}//, "user": rootScope.user }
+document.getElementById("nameField").innerHTML = $rootScope.regData.name; //"Vardenis";
+document.getElementById("surnameField").innerHTML = $rootScope.regData.surname; //"Pavardenis";
+document.getElementById("phoneField").innerHTML = $rootScope.regData.phone; //"+370 12345678";
+document.getElementById("emailField").innerHTML = $rootScope.regData.email; //"pavardenis@gmail.com";
+document.getElementById("unitSelect").innerHTML = $rootScope.regData.unit; //"ozo g. 25(PPC Akropolis)";
+document.getElementById("dateField").innerHTML = $rootScope.regData.date; //"2016-03-19";
+document.getElementById("topicSelect").innerHTML = $rootScope.regData.topic; //"PAskolos, lizingas";
+document.getElementById("commentField").innerHTML = $rootScope.regData.comment; //"Paskolos suteikimas užsienyje studijuojnčiam studentui";
+
+
+
+$scope.cancel = function() {
+            $window.location.href = '/#/overview';
+            }
 });
