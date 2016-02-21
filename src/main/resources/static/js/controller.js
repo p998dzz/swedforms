@@ -230,9 +230,35 @@ $scope.cancel = function() {
 });
 
 appControllers.controller('overviewController', function($scope, $http, $rootScope, $window) {
+$http({
+         method: 'GET',
+         //url: $rootScope.url+'/getRegistrations'
+         }).then(function successCallback(response) {
+              if(response.data != "")
+              {
+               $scope.products = response.data;
+              }
+              else
+              {
+                 alert("Registracijų neturite");
+              }
+              }, function errorCallback(response) {
+                 alert("Problemos su interneto ryšiu");
+              });
+
+/*$scope.products = [
+       { id: 1, name: 'test', color: 'lightblue' },
+       { id: 2, name: 'bob', color: 'blue' }]*/
 
 $scope.regi = function() {
         $window.location.href = '/#/newRegistration';
+     }
+
+$scope.regconf = function() {
+        $window.location.href = '/#/registrationConfirm';
+      }
+$scope.cancel = function() {
+       //uzikrinimo lentele ir tada delete jei paspaudzia taip
      }
 });
 
