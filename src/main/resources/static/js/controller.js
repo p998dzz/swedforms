@@ -31,6 +31,8 @@ appControllers.controller('loginController', function($scope, $http, $rootScope,
 });
 
 appControllers.controller('homeController', function($scope, $http, $rootScope, $window) {
+    if($rootScope.user == null)
+        $window.location.href = '/#/';
     $scope.regi = function() {
         $window.location.href = '/#/overview';
      }
@@ -40,7 +42,8 @@ appControllers.controller('homeController', function($scope, $http, $rootScope, 
 });
 
 appControllers.controller('newRegistrationController', function($scope, $http, $rootScope, $window) {
-
+    if($rootScope.user == null)
+            $window.location.href = '/#/';
 //    jQuery(function(){
 //    var enableDates = ["2016-02-20"]; //= kas apacioj
 //     function enableAllTheseDays(date) {
@@ -145,7 +148,8 @@ appControllers.controller('newRegistrationController', function($scope, $http, $
 });
 
 appControllers.controller('ContactUsController', function($scope, $http, $rootScope, $window) {
-
+        if($rootScope.user == null)
+                $window.location.href = '/#/';
 
        $scope.contact = function() {
                var topic = $("#topicSelect").val();
@@ -191,6 +195,8 @@ appControllers.controller('ContactUsController', function($scope, $http, $rootSc
 });
 
 appControllers.controller('confirmationController', function($scope, $http, $rootScope, $window) {
+    if($rootScope.user == null)
+            $window.location.href = '/#/';
     $scope.conf = function() {
         $window.location.href = '/#/home';
   }
@@ -230,7 +236,9 @@ $scope.cancel = function() {
 });
 
 appControllers.controller('overviewController', function($scope, $http, $rootScope, $window) {
-$http({
+        if($rootScope.user == null)
+                $window.location.href = '/#/';
+        $http({
          method: 'GET',
          url: $rootScope.url+'/getRegistrations'
          }).then(function successCallback(response) {
@@ -263,7 +271,8 @@ $scope.cancel = function() {
 });
 
 appControllers.controller('registrationConfirmController', function($scope, $http, $rootScope, $window) {
-
+if($rootScope.user == null)
+        $window.location.href = '/#/';
 //$rootScope.regData = { "name":name, "surname": surname, "phone":phone, "email": email, "unit":unit, "date": date,
 //            "topic": topic, "comment": comment}//, "user": rootScope.user }
 document.getElementById("nameField").innerHTML = $rootScope.regData.name; //"Vardenis";
