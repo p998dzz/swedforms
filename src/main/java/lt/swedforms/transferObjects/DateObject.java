@@ -15,7 +15,7 @@ public class DateObject implements Serializable {
     public DateObject(Date date)
     {
         this.date = date;
-        times = new ArrayList<>();
+        times = new ArrayList<String>();
         for(int i = 8; i < 17; i++)
             times.add(i+":00");
     }
