@@ -1,9 +1,11 @@
 package lt.swedforms.transferObjects;
 
+import java.io.Serializable;
+
 /**
  * Created by p998ugh on 2016.02.19.
  */
-public class NewRegistration {
+public class NewRegistration  implements Serializable {
     private String name;
     private String lastName;
     private String phoneNumber;
@@ -13,9 +15,9 @@ public class NewRegistration {
     private String time;
     private String topic;
     private String comment;
-    private User user;
+    private String userID;
 
-    public NewRegistration(String name, String lastName, String phoneNumber, String email, String unit, String date, String time, String topic, User user) {
+    public NewRegistration(String name, String lastName, String phoneNumber, String email, String unit, String date, String time, String topic, String user) {
         this.name = name;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
@@ -24,7 +26,7 @@ public class NewRegistration {
         this.date = date;
         this.time = time;
         this.topic = topic;
-        this.user = user;
+        this.userID = user;
     }
 
     public String getName() {
@@ -99,11 +101,11 @@ public class NewRegistration {
         this.comment = comment;
     }
 
-    public User getUser() {
-        return user;
+    public String getUser() {
+        return userID;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(String user) {
+        this.userID = user;
     }
 }
