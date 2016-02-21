@@ -1,34 +1,38 @@
-
 <head>
+
     <title>Registracijos peržiūra</title>
+
 </head>
 
+<div class="centered" >
 
-<h1>Registracijos internetu</h1>
-<table>
+    <table>
+        <thead>
+        <tr>
+            <th colspan="5"><h2>Registracijos internetu</h2></th>
+        </tr>
+        </thead>
 
-    <thead>
-    <tr>
-        <th>Data</th>
-        <th>Banko skyrius</th>
-        <th>Tema</th>
-        <th>Veiksmai</th>
-    </tr>
+        <tbody>
+        <tr>
+            <td>Data</td>
+            <td>Banko skyrius</td>
+            <td>Tema</td>
+            <td colspan="2" align="center">Veiksmai</td>
+        </tr>
+        </tbody>
 
-    </thead>
-    <tbody>
-    <tr ng-repeat="item in items">
-        <td>{{item.date}}</td>
-        <td>{{item.section}}</td>
-        <td>{{item.topic}}</td>
-        <td>Peržiūrėt</td>
-        <td>Atsisakyti</td>
-    </tr>
+        <tfoot>
+        <tr ng-repeat="x in names">
+            <td>{{x.Name}}</td>
+            <td>{{x.Country}}</td>
 
-    </tbody>
-</table>
+        </tr>
+        </tfoot>
 
-<a ng-click="regi()">Nauja registracija</a>
+    </table>
 
+    <a ng-click="regi()"> Nauja registracija </a>
 
-</html>
+</div>
+
