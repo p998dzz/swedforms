@@ -69,6 +69,18 @@ public class WebService {
         }
     }
 
+    @RequestMapping(value = "/getRegistrations", method = RequestMethod.POST)
+    public List<Registration> getRegistrations(@RequestBody final UserData randomNumber, HttpServletRequest request) {
+        List<lt.swedforms.Entities.User> users = userRepository.findByRandom(randomNumber.getUser());
+        if(users.size() != 0 && users.get(0).getIp() == request.getRemoteAddr())
+        {
+            return registrationrepository.findByUser(users.get(0));
+        }
+        else{
+            return null;
+        }
+    }
+
     @RequestMapping(value = "/createRegistration", method = RequestMethod.POST)
     public String createRegistration(@RequestBody final ContactUsRegistration newRegistration, HttpServletRequest request) {
 
