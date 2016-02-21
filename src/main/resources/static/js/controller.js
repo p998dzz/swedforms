@@ -1,5 +1,6 @@
 var appControllers = angular.module('controllers', []);
 
+
 appControllers.controller('loginController', function($scope, $http, $rootScope, $window) {
     $rootScope.url = "http://localhost:8080";
 
@@ -203,7 +204,7 @@ appControllers.controller('newUserController', function($scope, $http, $rootScop
 
            $http({
                method: 'POST',
-              // url: $rootScope.url+'/',
+               url: $rootScope.url+'/createUser',
                data: { "email": email, "pass": password}
            }).then(function successCallback(response) {
                          if(response.data == "OK")
@@ -213,6 +214,10 @@ appControllers.controller('newUserController', function($scope, $http, $rootScop
                          }else
                          {
                             alert("Jau egzisyuoja toks vartotojas");
+
+                            $rootScope.user = response.data;
+                        //    $window.location.href = '/#/home'; kodel domantai cia padarei kad siustu?
+
                          }
                        }, function errorCallback(response) {
                             alert("Problemos su interneto ryšiu");
