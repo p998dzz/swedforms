@@ -32,8 +32,8 @@ appControllers.controller('loginController', function($scope, $http, $rootScope,
 });
 
 appControllers.controller('homeController', function($scope, $http, $rootScope, $window) {
-    if($rootScope.user == null)
-        $window.location.href = '/#/';
+   // if($rootScope.user == null)
+     //   $window.location.href = '/#/';
     $scope.regi = function() {
         $window.location.href = '/#/overview';
      }
@@ -111,7 +111,46 @@ appControllers.controller('newRegistrationController', function($scope, $http, $
            var topic = $("#topicSelect").val();
            var comment = $("#commentField").val();
 
-            //validacijos
+
+           if(name.length == 0){
+                $("#nameField").css("background-color","#D490A7")
+                setTimeout(function(){ $("#nameField").css("background-color","#FFFFFF")}, 3000);
+                return;
+           }
+
+           if(surname.length == 0){
+                $("#surnameField").css("background-color","#D490A7")
+                setTimeout(function(){ $("#surnameField").css("background-color","#FFFFFF")}, 3000);
+                return;
+           }
+
+//~~~~~~~~~~~~~~~~PAGAL KA DAR TIKRINT?
+           if(phone.length != 12 ||  phone.charAt(0) == "+" ){
+                $("#lastnameField").css("background-color","#D490A7")
+                setTimeout(function(){ $("#lastnameField").css("background-color","#FFFFFF")}, 3000);
+                return;
+           }
+
+
+           if(unit == "Nepasirinkta"){
+                $("#unitSelect").css("background-color","#D490A7")
+                setTimeout(function(){ $("#unitSelect").css("background-color","#FFFFFF")}, 3000);
+                return;
+           }
+
+//~~~~~~~~~~~~~~NEZINAU KOKIA DEFAULTINE REIKSME
+           if(date == ""){
+                $("#dateField").css("background-color","#D490A7")
+                setTimeout(function(){ $("#dateField").css("background-color","#FFFFFF")}, 3000);
+                return;
+           }
+           if(topic == "Nepasirinkta"){
+                $("#topicSelect").css("background-color","#D490A7")
+                setTimeout(function(){ $("#topicSelect").css("background-color","#FFFFFF")}, 3000);
+                return;
+           }
+
+
 
             $rootScope.regData = { "name":name, "lastName": surname, "phoneNumber":phone, "email": email, "unit":unit, "date": date,
             "time" : time, "topic": topic, "comment": comment, "user": $rootScope.user }
@@ -151,6 +190,40 @@ appControllers.controller('ContactUsController', function($scope, $http, $rootSc
                var radio2 = $("responceemail").val();
                var radio3 = $("responceboth").val();
                var radio;
+
+//~`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~REIK PATIKRINT SITUOS
+           if(topic == "Nepasirinkta"){
+                $("#topicSelect").css("background-color","#D490A7")
+                setTimeout(function(){ $("#topicSelect").css("background-color","#FFFFFF")}, 3000);
+                return;
+           }
+
+           if(message.length == 0){
+                $("#messageField").css("background-color","#D490A7")
+                setTimeout(function(){ $("#messageField").css("background-color","#FFFFFF")}, 3000);
+                return;
+           }
+
+           if(name.length == 0){
+                $("#nameField").css("background-color","#D490A7")
+                setTimeout(function(){ $("#nameField").css("background-color","#FFFFFF")}, 3000);
+                return;
+           }
+
+//~~~~~~~~~~~~~~~~PAGAL KA DAR TIKRINT?
+           if(phone.length != 12 ||  phone.charAt(0) == "+" ){
+                $("#lastnameField").css("background-color","#D490A7")
+                setTimeout(function(){ $("#lastnameField").css("background-color","#FFFFFF")}, 3000);
+                return;
+           }
+//~~~~~~~~~~~~~~~~~PAGAL KA DAR TIKRINT?
+           if(!isEmail(email) || email.length == 0  ){
+                $("#lastnameField").css("background-color","#D490A7")
+                setTimeout(function(){ $("#lastnameField").css("background-color","#FFFFFF")}, 3000);
+                return;
+           }
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
                if(radio1 != null)
                 radio = radio1;
@@ -223,7 +296,7 @@ appControllers.controller('newUserController', function($scope, $http, $rootScop
                 setTimeout(function(){ $("#emailField").css("background-color","#FFFFFF")}, 3000);
                 return;
            }
-           if(password.lenght > 20 || password.lenght < 8){
+           if(password.length > 20 || password.length < 8){
                 $("#passwordField").css("background-color","#D490A7")
                 setTimeout(function(){ $("#passwordField").css("background-color","#FFFFFF")}, 3000);
                 return;
