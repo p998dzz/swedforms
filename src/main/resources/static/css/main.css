@@ -9,3 +9,9 @@
       margin-top: -200px;
       margin-left: -200px;
 }
+
+.wrongField{
+background-color: #FEA653;
+border-style: solid;
+border-color: #ff0000;
+}

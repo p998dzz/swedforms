@@ -1,7 +1,5 @@
 var appControllers = angular.module('controllers', []);
 
-
-
 appControllers.controller('loginController', function($scope, $http, $rootScope, $window) {
     $scope.register = function() {
            $window.location.href = '/#/newUser';
@@ -32,8 +30,8 @@ appControllers.controller('loginController', function($scope, $http, $rootScope,
 });
 
 appControllers.controller('homeController', function($scope, $http, $rootScope, $window) {
-   // if($rootScope.user == null)
-     //   $window.location.href = '/#/';
+   if($rootScope.user == null)
+     $window.location.href = '/#/';
     $scope.regi = function() {
         $window.location.href = '/#/overview';
      }
@@ -113,30 +111,45 @@ appControllers.controller('newRegistrationController', function($scope, $http, $
 
 
            if(name.length == 0){
-                $("#nameField").css("background-color","#D490A7")
-                setTimeout(function(){ $("#nameField").css("background-color","#FFFFFF")}, 3000);
-                return;
-           }
+               $("#nameField").css("background-color","#FFCD92");
+               $("#nameField").css("border-style", "solid");
+               $("#nameField").css("border-color", "#ff0000");
+               setTimeout(function(){ $("#nameField").css("background-color","#FFFFFF")}, 3000);
+               //setTimeout(function(){ }, 3000);
+               return;
+               }
+           else //reik kazkaip sugalvot kaip padaryt kad kai jau iraso border line pavirsta paprasta pilka
+            $("#nameField").css("border-color", "#C0C0C0");
 
            if(surname.length == 0){
-                $("#surnameField").css("background-color","#D490A7")
-                setTimeout(function(){ $("#surnameField").css("background-color","#FFFFFF")}, 3000);
-                return;
-           }
+                              $("#surnameField").css("background-color","#FFCD92");
+                              $("#surnameField").css("border-style", "solid");
+                              $("#surnameField").css("border-color", "#ff0000");
+                              setTimeout(function(){ $("#surnameField").css("background-color","#FFFFFF")}, 3000);
+                              //setTimeout(function(){ }, 3000);
+                              return;
+                              }
+                      else //reik kazkaip sugalvot kaip padaryt kad kai jau iraso border line pavirsta paprasta pilka
+                      $("#surnameField").css("border-color", "#C0C0C0");
 
 //~~~~~~~~~~~~~~~~PAGAL KA DAR TIKRINT?
            if(phone.length != 12 ||  phone.charAt(0) == "+" ){
-                $("#lastnameField").css("background-color","#D490A7")
-                setTimeout(function(){ $("#lastnameField").css("background-color","#FFFFFF")}, 3000);
+                $("#phoneField").css("background-color","#D490A7")
+                setTimeout(function(){ $("#phoneField").css("background-color","#FFFFFF")}, 3000);
                 return;
            }
 
 
            if(unit == "Nepasirinkta"){
-                $("#unitSelect").css("background-color","#D490A7")
-                setTimeout(function(){ $("#unitSelect").css("background-color","#FFFFFF")}, 3000);
-                return;
+              $("#unitSelect").css("background-color","#FFBC6E");
+              $("#unitSelect").css("border-style", "solid");
+              $("#unitSelect").css("border-color", "#ff0000");
+              setTimeout(function(){ $("#unitSelect").css("background-color","#FFFFFF")}, 3000);
+              // setTimeout(function(){ $("#topicSelect").css("border-color", "#C0C0C0")}, 3000);
+              return;
            }
+           else //reik kazkaip sugalvot kaip padaryt kad kai jau iraso border line pavirsta paprasta pilka
+             $("#unitSelect").css("border-color", "#C0C0C0");
 
 //~~~~~~~~~~~~~~NEZINAU KOKIA DEFAULTINE REIKSME
            if(date == ""){
@@ -144,11 +157,18 @@ appControllers.controller('newRegistrationController', function($scope, $http, $
                 setTimeout(function(){ $("#dateField").css("background-color","#FFFFFF")}, 3000);
                 return;
            }
+
            if(topic == "Nepasirinkta"){
-                $("#topicSelect").css("background-color","#D490A7")
-                setTimeout(function(){ $("#topicSelect").css("background-color","#FFFFFF")}, 3000);
-                return;
-           }
+                           $("#topicSelect").css("background-color","#FFBC6E");
+                           $("#topicSelect").css("border-style", "solid");
+                           $("#topicSelect").css("border-color", "#ff0000");
+                           setTimeout(function(){ $("#topicSelect").css("background-color","#FFFFFF")}, 3000);
+                          // setTimeout(function(){ $("#topicSelect").css("border-color", "#C0C0C0")}, 3000);
+                           return;
+                      }
+                       else //reik kazkaip sugalvot kaip padaryt kad kai jau iraso border line pavirsta paprasta pilka
+                       $("#topicSelect").css("border-color", "#C0C0C0");
+
 
 
 
@@ -176,14 +196,15 @@ appControllers.controller('newRegistrationController', function($scope, $http, $
 });
 
 appControllers.controller('ContactUsController', function($scope, $http, $rootScope, $window) {
-        if($rootScope.user == null)
-                $window.location.href = '/#/';
+       if($rootScope.user == null)
+              $window.location.href = '/#/';
+
 
        $scope.contact = function() {
                var topic = $("#topicSelect").val();
                var message = $("#messageField").val();
                var name = $( "#nameField" ).val();
-               var lastname = $( "#lastnameField" ).val();
+               var lastName = $( "#lastnameField" ).val();
                var phone = $( "#phoneField" ).val();
                var email = $( "#emailField" ).val();
                var radio1 = $("responcephone").val();
@@ -193,35 +214,68 @@ appControllers.controller('ContactUsController', function($scope, $http, $rootSc
 
 //~`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~REIK PATIKRINT SITUOS
            if(topic == "Nepasirinkta"){
-                $("#topicSelect").css("background-color","#D490A7")
+                $("#topicSelect").css("background-color","#FFBC6E");
+                $("#topicSelect").css("border-style", "solid");
+                $("#topicSelect").css("border-color", "#ff0000");
                 setTimeout(function(){ $("#topicSelect").css("background-color","#FFFFFF")}, 3000);
+               // setTimeout(function(){ $("#topicSelect").css("border-color", "#C0C0C0")}, 3000);
                 return;
            }
+            else //reik kazkaip sugalvot kaip padaryt kad kai jau iraso border line pavirsta paprasta pilka
+            $("#topicSelect").css("border-color", "#C0C0C0");
+
 
            if(message.length == 0){
-                $("#messageField").css("background-color","#D490A7")
+                $("#messageField").css("background-color","#FFCD92");
+                $("#messageField").css("border-style", "solid");
+                $("#messageField").css("border-color", "#ff0000");
                 setTimeout(function(){ $("#messageField").css("background-color","#FFFFFF")}, 3000);
+                //setTimeout(function(){ }, 3000);
                 return;
            }
+           else //reik kazkaip sugalvot kaip padaryt kad kai jau iraso border line pavirsta paprasta pilka
+           $("#messageField").css("border-color", "#C0C0C0");
 
            if(name.length == 0){
-                $("#nameField").css("background-color","#D490A7")
+                $("#nameField").css("background-color","#FFCD92");
+                $("#nameField").css("border-style", "solid");
+                $("#nameField").css("border-color", "#ff0000");
                 setTimeout(function(){ $("#nameField").css("background-color","#FFFFFF")}, 3000);
+                //setTimeout(function(){ }, 3000);
+                return;
+           }
+           else //reik kazkaip sugalvot kaip padaryt kad kai jau iraso border line pavirsta paprasta pilka
+            $("#nameField").css("border-color", "#C0C0C0");
+
+           if(lastName.length == 0){
+                   $("#lastnameField").css("background-color","#FFCD92");
+                   $("#lastnameField").css("border-style", "solid");
+                   $("#lastnameField").css("border-color", "#ff0000");
+                   setTimeout(function(){ $("#lastnameField").css("background-color","#FFFFFF")}, 3000);
+                   //setTimeout(function(){ }, 3000);
+                   return;
+                   }
+           else //reik kazkaip sugalvot kaip padaryt kad kai jau iraso border line pavirsta paprasta pilka
+           $("#lastnameField").css("border-color", "#C0C0C0");
+
+//~~~~~~~~~~~~~~~~PAGAL KA DAR TIKRINT? ///reik patikslint-----------------------
+           if(phone.length != 12 ||  phone.charAt(0) == "+" ){
+                $("#phoneField").css("background-color","#FEA653");
+                setTimeout(function(){ $("#phoneField").css("background-color","#FFFFFF")}, 3000);
                 return;
            }
 
-//~~~~~~~~~~~~~~~~PAGAL KA DAR TIKRINT?
-           if(phone.length != 12 ||  phone.charAt(0) == "+" ){
-                $("#lastnameField").css("background-color","#D490A7")
-                setTimeout(function(){ $("#lastnameField").css("background-color","#FFFFFF")}, 3000);
-                return;
-           }
 //~~~~~~~~~~~~~~~~~PAGAL KA DAR TIKRINT?
            if(!isEmail(email) || email.length == 0  ){
-                $("#lastnameField").css("background-color","#D490A7")
-                setTimeout(function(){ $("#lastnameField").css("background-color","#FFFFFF")}, 3000);
+                $("#emailField").css("background-color","#FFCD92");
+                $("#emailField").css("border-style", "solid");
+                $("#emailField").css("border-color", "#ff0000");
+                setTimeout(function(){ $("#emailField").css("background-color","#FFFFFF")}, 3000);
+                //setTimeout(function(){ }, 3000);
                 return;
            }
+           else //reik kazkaip sugalvot kaip padaryt kad kai jau iraso border line pavirsta paprasta pilka
+             $("#emailField").css("border-color", "#C0C0C0");
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -235,7 +289,7 @@ appControllers.controller('ContactUsController', function($scope, $http, $rootSc
                $http({
                    method: 'POST',
                    url: $rootScope.url+'/createContactUs',
-                   data: { "topic":topic, "message":message, "name":name, "lastname": lastname,
+                   data: { "topic":topic, "message":message, "name":name, "lastName": lastName,
                    "phone":phone, "email": email, "radio":radio, "user": $rootScope.user}
                                   }).then(function successCallback(response) {
                              if(response.data != "")
@@ -343,7 +397,7 @@ appControllers.controller('overviewController', function($scope, $http, $rootSco
               }
               else
               {
-                 alert("Registracijų neturite");
+                 //alert("Registracijų neturite");
               }
               }, function errorCallback(response) {
                  alert("Problemos su interneto ryšiu");
@@ -414,8 +468,8 @@ appControllers.controller('registrationConfirmController', function($scope, $htt
 if($rootScope.user == null)
         $window.location.href = '/#/';
 document.getElementById("nameField").innerHTML = $rootScope.regData.name; //"Vardenis";
-document.getElementById("surnameField").innerHTML = $rootScope.regData.surname; //"Pavardenis";
-document.getElementById("phoneField").innerHTML = $rootScope.regData.phone; //"+370 12345678";
+document.getElementById("surnameField").innerHTML = $rootScope.regData.lastName; //"Pavardenis";
+document.getElementById("phoneField").innerHTML = $rootScope.regData.phoneNumber; //"+370 12345678";
 document.getElementById("emailField").innerHTML = $rootScope.regData.email; //"pavardenis@gmail.com";
 document.getElementById("unitSelect").innerHTML = $rootScope.regData.unit; //"ozo g. 25(PPC Akropolis)";
 document.getElementById("dateField").innerHTML = $rootScope.regData.date; //"2016-03-19";
