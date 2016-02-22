@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by p998ugh on 2016.02.19.
  */
-public class NewRegistration  implements Serializable {
+public class NewRegistration implements Serializable {
     private String name;
     private String lastName;
     private String phoneNumber;
@@ -15,19 +15,7 @@ public class NewRegistration  implements Serializable {
     private String time;
     private String topic;
     private String comment;
-    private String userID;
-
-    public NewRegistration(String name, String lastName, String phoneNumber, String email, String unit, String date, String time, String topic, String user) {
-        this.name = name;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.unit = unit;
-        this.date = date;
-        this.time = time;
-        this.topic = topic;
-        this.userID = user;
-    }
+    private String user;
 
     public String getName() {
         return name;
@@ -102,10 +90,10 @@ public class NewRegistration  implements Serializable {
     }
 
     public String getUser() {
-        return userID;
+        return user;
     }
 
     public void setUser(String user) {
-        this.userID = user;
+        this.user = user;
     }
 }

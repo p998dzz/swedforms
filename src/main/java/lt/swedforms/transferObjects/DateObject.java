@@ -2,17 +2,16 @@ package lt.swedforms.transferObjects;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Super on 2/19/2016.
  */
 public class DateObject implements Serializable {
-    Date date;
+    String date;
     List<String> times;
 
-    public DateObject(Date date)
+    public DateObject(String date)
     {
         this.date = date;
         times = new ArrayList<String>();
@@ -24,7 +23,7 @@ public class DateObject implements Serializable {
         int indexToDelete = -1;
         for(String existingTime : times)
         {
-            if(existingTime == time) {
+            if(existingTime.equals(time)) {
                 indexToDelete = times.indexOf(existingTime);
                 break;
             }
@@ -33,7 +32,11 @@ public class DateObject implements Serializable {
             times.remove(indexToDelete);
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
+    }
+
+    public List<String> getTimes() {
+        return times;
     }
 }

@@ -36,8 +36,8 @@ public class WebService {
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public String authenticate(@RequestBody final User person, HttpServletRequest request) {
-        List<lt.swedforms.Entities.User> authenticatedUsers = userRepository.findByEmailAndPassword(person.getEmail(), person.getPassword());
-        if (userRepository.findByEmailAndPassword(person.getEmail(), person.getPassword()).size() != 0) {
+        List<lt.swedforms.Entities.User> authenticatedUsers = userRepository.findByEmailAndPassword(person.getEmail(), person.getPass());
+        if (userRepository.findByEmailAndPassword(person.getEmail(), person.getPass()).size() != 0) {
             lt.swedforms.Entities.User user = authenticatedUsers.get(0);
             String userIdentification = setRandom(user, request.getRemoteAddr());
             userRepository.save(user);
@@ -49,7 +49,7 @@ public class WebService {
     @RequestMapping(value = "/createUser", method = RequestMethod.POST)
     public String createUser(@RequestBody final User person, HttpServletRequest request) {
         if (userRepository.findByEmail(person.getEmail()).size() == 0) {
-            lt.swedforms.Entities.User user = new lt.swedforms.Entities.User(person.getEmail(), person.getPassword());
+            lt.swedforms.Entities.User user = new lt.swedforms.Entities.User(person.getEmail(), person.getPass());
             String userIdentification = setRandom(user, request.getRemoteAddr());
             userRepository.save(user);
             return userIdentification;
@@ -74,8 +74,8 @@ public class WebService {
     @RequestMapping(value = "/getRegistrations", method = RequestMethod.POST)
     public List<Registration> getRegistrations(@RequestBody final UserData randomNumber, HttpServletRequest request) {
         List<lt.swedforms.Entities.User> users = userRepository.findByRandom(randomNumber.getUser());
-        if (users.size() != 0 && users.get(0).getIp() == request.getRemoteAddr()) {
-            return registrationrepository.findByUser(users.get(0));
+        if (users.size() != 0 && users.get(0).getIp().equals(request.getRemoteAddr())) {
+            return registrationrepository.findByEmail(users.get(0).getEmail());
         } else {
             return null;
         }
@@ -84,46 +84,23 @@ public class WebService {
     @RequestMapping(value = "/createRegistration", method = RequestMethod.POST)
     public String createRegistration(@RequestBody final NewRegistration newRegistration, HttpServletRequest request) {
         if(findUser(newRegistration.getUser(), request) != null) {
-            Date date = parseDate(newRegistration);
+            List<Registration> existingRegistrationOnDate = registrationrepository.findByDate(
+                    newRegistration.getDate()+" "+newRegistration.getTime());
+            if (existingRegistrationOnDate.size() != 0) return null;
             Registration registration = new Registration(
                     findUser(newRegistration.getUser(), request),
-                    date,
+                    newRegistration.getDate()+" "+newRegistration.getTime(),
                     newRegistration.getUnit(),
                     newRegistration.getTopic(),
                     newRegistration.getPhoneNumber(),
                     newRegistration.getComment(),
                     newRegistration.getName(),
-                    newRegistration.getLastName());
+                    newRegistration.getLastName(),
+                    findUser(newRegistration.getUser(), request).getEmail());
             registrationrepository.save(registration);
-            return "OK";
+            return newRegistration.getUser();
         }
         return null;
-    }
-
-
-    @RequestMapping(value = "/checkRegistration", method = RequestMethod.POST)
-    public String checkRegistration(@RequestBody final NewRegistration newRegistration, HttpServletRequest request) {
-        if(findUser(newRegistration.getUser(), request) != null) {
-            DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            Date date = new Date();
-            try {
-                date = format.parse(newRegistration.getDate());
-            } catch (ParseException e) {
-                return null;
-            }
-            List<Registration> existingRegistrationOnDate = registrationrepository.findByDate(date);
-            if (checkIfDateFree(date, existingRegistrationOnDate)) return null;
-            return "OK";
-        }
-        return null;
-    }
-
-    private boolean checkIfDateFree(Date date, List<Registration> existingRegistrationOnDate) {
-        for (Registration reg : existingRegistrationOnDate) {
-            if (reg.getDate().equals(date))
-                return true;
-        }
-        return false;
     }
 
     @RequestMapping(value = "/getDataForRegistration", method = RequestMethod.POST)
@@ -134,11 +111,32 @@ public class WebService {
         return null;
     }
 
-    @RequestMapping(value = "/createContactUs", method = RequestMethod.POST)
-    public String createContactUs(@RequestBody final ContactUs newContacting) {
-        if (newContacting.getUser() != null) {
+    @RequestMapping(value = "/deleteRegistration", method = RequestMethod.POST)
+    public String deleteRegistration(@RequestBody final RegistrationToDelete reg, HttpServletRequest request) {
+        if (findUser(reg.getUser(),request) != null) {
+            List<Registration> regs = registrationrepository.findByDate(reg.getDate());
+            if(regs.size() != 0)
+                registrationrepository.delete(regs.get(0));
+            return reg.getUser();
+        }
+        return null;
+    }
 
-            return "OK";
+    @RequestMapping(value = "/createContactUs", method = RequestMethod.POST)
+    public String createContactUs(@RequestBody final ContactUs newContacting, HttpServletRequest request) {
+        if (findUser(newContacting.getUser(),request) != null) {
+            lt.swedforms.Entities.ContactUs contactUs = new lt.swedforms.Entities.ContactUs(
+                    newContacting.getTopic(),
+                    findUser(newContacting.getUser(),request),
+                    newContacting.getMessage(),
+                    newContacting.getPhone(),
+                    newContacting.getRadio(),
+                    newContacting.getEmail(),
+                    newContacting.getName(),
+                    newContacting.getLastName()
+                   );
+            contactUsRepository.save(contactUs);
+            return newContacting.getUser();
         }
         return null;
     }
@@ -147,9 +145,9 @@ public class WebService {
 
     private String setRandom(lt.swedforms.Entities.User user, String ip) {
         Random rand = new Random();
-        long id = rand.nextLong();
+        Integer id = rand.nextInt();
         while (id < 0)
-            id = rand.nextLong();
+            id = rand.nextInt();
         user.setRandom(ip, id + "");
         return id + "";
     }
@@ -161,19 +159,24 @@ public class WebService {
         c.setTime(date);
         for (int i = 0; i < 30; i++) {
             c.add(Calendar.DATE, 1);
-            possibleDates.add(new DateObject(c.getTime()));
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            possibleDates.add(new DateObject(df.format(c.getTime())));
         }
         return getDateObjects(possibleDates, c);
     }
 
     private List<DateObject> getDateObjects(List<DateObject> possibleDates, Calendar c) {
         for (DateObject dateInList : possibleDates) {
-            List<Registration> registrations = registrationrepository.findByDate(dateInList.getDate());
-            if (registrations.size() != 0) {
-                for (Registration registration : registrations) {
-                    c.setTime(registration.getDate());
-                    dateInList.removeTime(c.get(Calendar.HOUR_OF_DAY) + ":00");
-                }
+            List<String> timesToDelete = new ArrayList<String>();
+            for(String time: dateInList.getTimes())
+            {
+                List<Registration> registrations = registrationrepository.findByDate(dateInList.getDate()+" "+time);
+                if(registrations.size() != 0)
+                    timesToDelete.add(time);
+            }
+            for(String time: timesToDelete)
+            {
+                dateInList.removeTime(time);
             }
         }
         return possibleDates;
@@ -191,7 +194,7 @@ public class WebService {
     private lt.swedforms.Entities.User findUser(String userId, HttpServletRequest request)
     {
         List<lt.swedforms.Entities.User> users = userRepository.findByRandom(userId);
-        if(users.size() != 0 && users.get(0).getIp() == request.getRemoteAddr())
+        if(users.size() != 0 && users.get(0).getIp().equals(request.getRemoteAddr()))
             return users.get(0);
         return null;
     }

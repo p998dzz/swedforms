@@ -13,12 +13,18 @@ public class ContactUs {
     private String message;
     private String phoneNUmber;
     private String answerType;
+    private String email;
+    private String name;
+    private String lastName;
 
-    public ContactUs(String topic, User user, String message, String phoneNUmber, String answerType) {
+    public ContactUs(String topic, User user, String message, String phoneNUmber, String answerType, String email, String name, String lastName) {
         this.topic = topic;
         this.user = user;
         this.message = message;
         this.phoneNUmber = phoneNUmber;
         this.answerType = answerType;
+        this.email = email;
+        this.name = name;
+        this.lastName = lastName;
     }
 }

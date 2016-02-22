@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class User  implements Serializable {
     private String email;
-    private String password;
+    private String pass;
 
     public String getEmail() {
         return email;
@@ -17,11 +17,11 @@ public class User  implements Serializable {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPass() {
+        return pass;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPass(String password) {
+        this.pass = password;
     }
 }

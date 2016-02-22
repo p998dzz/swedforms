@@ -2,11 +2,9 @@ var swedApp =  angular.module('UserForms', [
   'controllers',
   'ngRoute'
 ])
-/*.run(function($rootScope) {
-    $rootScope.regData = { "name":"Inga", "surname": "kazkas", "phone":"868525", "email": "tese@rw.com", "unit":"banko skyrius kazkoks", "date": "2016-12-30",
-                "topic": "nikazka", "comment": "tuuuuuri veiiiikt sitas"}//, "user": rootScope.user }
-});*/
-
+.run(function($rootScope) {
+    $rootScope.url = "http://localhost:8080";
+});
 swedApp.config(['$routeProvider',
   function($routeProvider, $rootScope) {
     $routeProvider.

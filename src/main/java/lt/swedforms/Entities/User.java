@@ -33,4 +33,8 @@ public class User {
     public String getIp(){
         return this.ip;
     }
+
+    public String getEmail() {
+        return email;
+    }
 }

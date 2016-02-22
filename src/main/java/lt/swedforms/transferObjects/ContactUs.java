@@ -12,6 +12,7 @@ public class ContactUs  implements Serializable {
     private String lastName;
     private String phone;
     private String email;
+    private String radio;
     private String user;
 
 
@@ -69,5 +70,13 @@ public class ContactUs  implements Serializable {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public String getRadio() {
+        return radio;
+    }
+
+    public void setRadio(String radio) {
+        this.radio = radio;
     }
 }

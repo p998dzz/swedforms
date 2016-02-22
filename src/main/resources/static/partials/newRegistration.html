@@ -44,9 +44,12 @@
 
             <tr>
                 <td><div class = "date">Data</div></td>
-                <td><input id="dateField"/></td>
+                <td><input id="dateField" type="date"/></td>
                 <td>
-                    <select ng-init="dayOnClick" id="timeField">   </select></td>
+                    <select id="timeField">
+                        <option ng-repeat="time in times">{{time}}</option>
+                    </select>
+                </td>
 
             </tr>
             <td>Tema</td>

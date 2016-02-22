@@ -1,8 +1,8 @@
 var appControllers = angular.module('controllers', []);
 
-appControllers.controller('loginController', function($scope, $http, $rootScope, $window) {
-    $rootScope.url = "http://localhost:8080";
 
+
+appControllers.controller('loginController', function($scope, $http, $rootScope, $window) {
     $scope.register = function() {
            $window.location.href = '/#/newUser';
         }
@@ -15,13 +15,14 @@ appControllers.controller('loginController', function($scope, $http, $rootScope,
            url: $rootScope.url+'/authenticate',
            data: { "email": email, "pass": password }
        }).then(function successCallback(response) {
-                     if(response.data == "OK")
+                     if(response.data != "")
                      {
                         $rootScope.user = response.data;
                         $window.location.href = '/#/home';
                      }else
                      {
-                        alert("Neteisingas vartotojas arba slaptažodis");
+                        $("#wrongPassword").show();
+                        setTimeout(function(){ $("#wrongPassword").hide(); }, 3000);
                      }
                    }, function errorCallback(response) {
                         alert("Problemos su interneto ryšiu");
@@ -41,77 +42,63 @@ appControllers.controller('homeController', function($scope, $http, $rootScope, 
   }
 });
 
+Date.prototype.yyyymmdd = function() {
+   var yyyy = this.getFullYear().toString();
+   var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+   var dd  = this.getDate().toString();
+   return yyyy +"-"+ (mm[1]?mm:"0"+mm[0]) +"-"+ (dd[1]?dd:"0"+dd[0]); // padding
+  };
+
 appControllers.controller('newRegistrationController', function($scope, $http, $rootScope, $window) {
     if($rootScope.user == null)
-            $window.location.href = '/#/';
-//    jQuery(function(){
-//    var enableDates = ["2016-02-20"]; //= kas apacioj
-//     function enableAllTheseDays(date) {
-//     var sdate = $.datepicker.formatDate( 'yy-mm-dd', date)
-//     console.log(sdate)
-//    if($.inArray(sdate,enableDates) != -1) { //vietoj enable butu posible days
-//    return [true];
-//                   }
-//    return [false];
-//    }
-//    jQuery('#dateField').datepicker({dateFormat: 'yy-mm-dd', beforeShowDay: enableAllTheseDays});
-//    })
+            $window.location.href = '/';
 
+
+    $scope.times = ["8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00"];
     $http({
-         method: 'GET',
-         //url: $rootScope.url+'/getDataForRegistration'
+         method: 'POST',
+         url: $rootScope.url+'/getDataForRegistration',
+         data: {"user" : $rootScope.user}
          }).then(function successCallback(response) {
               if(response.data != "")
               {
-                  jQuery(function(){
                     $scope.data = response.data;
                     $scope.possibleDates = new Array();
-                    for(var i = 0; i < $scope.possibleDates.length; i++)
+                    for(var i = 0; i < $scope.data.length; i++)
                     {
-                    possibleDates.push($scope.possibleDates[i].date);
+                        $scope.possibleDates.push($scope.data[i].date);
                     }
-
-                    function enableAllTheseDays(date) {
-                    var sdate = $.datepicker.formatDate( 'yy-mm-dd', date)
-                    console.log(sdate)
-                    if($.inArray(sdate,possibleDates) != -1) {
-                            return [true];
-                    }
-                            return [false];
-                    }
-                    jQuery('#dateField').datepicker({dateFormat: 'yy-mm-dd', beforeShowDay: enableAllTheseDays});
-                    })
-
+                    $('#dateField').datepicker({
+                        dateFormat: "yyyy-mm-dd",
+                        beforeShowDay: function(date){
+                            dmy = date.yyyymmdd();
+                              if ($.inArray(dmy, $scope.possibleDates) != -1) {
+                                return [true, "","Available"];
+                              } else {
+                                return [false,"","unAvailable"];
+                              }
+                        },
+                        onSelect: function (date) {
+                            date = date.toString().substring(4, date.length);
+                            for(var i = 0; i < $scope.possibleDates.length; i++)
+                            {
+                                if($scope.possibleDates[i] == date){
+                                    $scope.times = $scope.data[i].times;
+                                    $scope.$apply();
+                                    break;
+                                }
+                            }
+                            $('#dateField').val(date);
+                        }
+                    });
               }
               else
               {
-                 alert("Negautos datos iš serverio");
+                 alert("Serverio problema");
               }
               }, function errorCallback(response) {
                  alert("Problemos su interneto ryšiu");
               });
-
-              /* $scope.dayOnClick = function(){
-                       var date = $("#dateField").val();
-                       var timee = $("timeField").val()
-                       var enableTime = ["08:00","09:00"]; //= kas apacioj
-
-                       for(index in enableTime) {
-                           timee.options[timee.options.length] = new Option(enableTime[index], index);
-                       }*/
-                       //$scope.possibleTimes = new Array();
-
-
-              //             for(var i = 0; i < $scope.data; i++)
-              //              {
-              //                     if(date == $scope.data[i].date)
-              //                     {
-              //                         var times = $scope.data[i].time;
-              //                         for(var j = 0; j<times.length; j++)
-              //                           $("timeField").push(times[j]);
-              //                         break;
-              //                     }
-              //              }
 
     $scope.register = function() {
            var name = $( "#nameField" ).val();
@@ -120,23 +107,25 @@ appControllers.controller('newRegistrationController', function($scope, $http, $
            var email = $( "#emailField" ).val();
            var unit =  $("#unitSelect").val();
            var date = $("#dateField").val();
-          // var time = $("#timeSelect").val();
+           var time = $("#timeField").val();
            var topic = $("#topicSelect").val();
            var comment = $("#commentField").val();
 
-            $rootScope.regData = { "name":name, "surname": surname, "phone":phone, "email": email, "unit":unit, "date": date,
-            "topic": topic, "comment": comment, "user": rootScope.user }
+            //validacijos
+
+            $rootScope.regData = { "name":name, "lastName": surname, "phoneNumber":phone, "email": email, "unit":unit, "date": date,
+            "time" : time, "topic": topic, "comment": comment, "user": $rootScope.user }
            $http({
                method: 'POST',
-              // url: $rootScope.url+'/checkRegistration',
+               url: $rootScope.url+'/createRegistration',
                data: $rootScope.regData
            }).then(function successCallback(response) {
-                         if(response.data == "OK")
+                         if(response.data != null)
                          {
-                            $window.location.href = '/#/home';  //siaip turetu eit i registration confirmation
+                            $window.location.href = '/#/registrationConfirm';  //siaip turetu eit i registration confirmation
                          }else
                          {
-                            alert("Įvyko klaida");
+                            alert("Jūsų pasirinktą laiką spėjo užimti");
                          }
                        }, function errorCallback(response) {
                             alert("Problemos su interneto ryšiu");
@@ -172,11 +161,11 @@ appControllers.controller('ContactUsController', function($scope, $http, $rootSc
 
                $http({
                    method: 'POST',
-                 //  url: $rootScope.url+'/createContact',
+                   url: $rootScope.url+'/createContactUs',
                    data: { "topic":topic, "message":message, "name":name, "lastname": lastname,
-                   "phone":phone, "email": email, "radio":radio, "user": rootScope.user}
+                   "phone":phone, "email": email, "radio":radio, "user": $rootScope.user}
                                   }).then(function successCallback(response) {
-                             if(response.data == "OK")
+                             if(response.data != "")
                              {
                                 $window.location.href = '/#/confirmation';
                              }else
@@ -185,7 +174,7 @@ appControllers.controller('ContactUsController', function($scope, $http, $rootSc
                              }
                            }, function errorCallback(response) {
                                 alert("Problemos su interneto ryšiu");
-                           });
+                         });
 
                };
 
@@ -202,28 +191,60 @@ appControllers.controller('confirmationController', function($scope, $http, $roo
   }
 });
 
+function isEmail(email) {
+  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  return regex.test(email);
+}
+
 appControllers.controller('newUserController', function($scope, $http, $rootScope, $window) {
+    $("#emailField").keypress(function() {
+        if($( "#emailField" ).val().length > 50){
+            $("#emailField").css("background-color","#D490A7")
+            setTimeout(function(){ $("#emailField").css("background-color","#FFFFFF")}, 3000);
+        }else{
+            $("#emailField").css("background-color","#FFFFFF")
+        }
+    });
+
+    $("#passwordField").keypress(function() {
+            if($( "#passwordField" ).val().length > 20){
+                $("#passwordField").css("background-color","#D490A7")
+                  setTimeout(function(){ $("#passwordField").css("background-color","#FFFFFF")}, 3000);
+            }else{
+                $("#passwordField").css("background-color","#FFFFFF")
+            }
+          })
 
     $scope.ureg = function() {
            var email = $( "#emailField" ).val();
            var password = $( "#passwordField" ).val();
-
+           if(!isEmail(email) || email > 50){
+                $("#emailField").css("background-color","#D490A7")
+                setTimeout(function(){ $("#emailField").css("background-color","#FFFFFF")}, 3000);
+                return;
+           }
+           if(password.lenght > 20 || password.lenght < 8){
+                $("#passwordField").css("background-color","#D490A7")
+                setTimeout(function(){ $("#passwordField").css("background-color","#FFFFFF")}, 3000);
+                return;
+           }
+           if($( "#repeatpasswordField" ).val() != password){
+                $("#repeatpasswordField").css("background-color","#D490A7")
+                setTimeout(function(){ $("#repeatpasswordField").css("background-color","#FFFFFF")}, 3000);
+                return;
+           }
            $http({
                method: 'POST',
                url: $rootScope.url+'/createUser',
                data: { "email": email, "pass": password}
            }).then(function successCallback(response) {
-                         if(response.data == "OK")
+                         if(response.data != "")
                          {
-
-                            $window.location.href = '/#/';
+                            $rootScope.user = response.data;
+                            $window.location.href = '/#/home';
                          }else
                          {
-                            alert("Jau egzisyuoja toks vartotojas");
-
-                            $rootScope.user = response.data;
-                        //    $window.location.href = '/#/home'; kodel domantai cia padarei kad siustu i home?
-
+                            alert("Jau egzistuoja toks vartotojas");
                          }
                        }, function errorCallback(response) {
                             alert("Problemos su interneto ryšiu");
@@ -231,16 +252,17 @@ appControllers.controller('newUserController', function($scope, $http, $rootScop
         }
 
 $scope.cancel = function() {
-            $window.location.href = '/#/';
-            }
+        $window.location.href = '/#/';
+        }
 });
 
 appControllers.controller('overviewController', function($scope, $http, $rootScope, $window) {
         if($rootScope.user == null)
-                $window.location.href = '/#/';
+                $window.location.href = '/';
         $http({
-         method: 'GET',
-         url: $rootScope.url+'/getRegistrations'
+         method: 'POST',
+         url: $rootScope.url+'/getRegistrations',
+         data: {"user": $rootScope.user}
          }).then(function successCallback(response) {
               if(response.data != "")
               {
@@ -254,27 +276,70 @@ appControllers.controller('overviewController', function($scope, $http, $rootSco
                  alert("Problemos su interneto ryšiu");
               });
 
-/*$scope.products = [
-       { id: 1, name: 'test', color: 'lightblue' },
-       { id: 2, name: 'bob', color: 'blue' }]*/
-
 $scope.regi = function() {
         $window.location.href = '/#/newRegistration';
      }
 
-$scope.regconf = function() {
+$scope.regconf = function(date) {
         $window.location.href = '/#/registrationConfirm';
       }
-$scope.cancel = function() {
-       //uzikrinimo lentele ir tada delete jei paspaudzia taip
+
+$scope.cancel = function(date) {
+         var r = confirm("Ar tikrai norite ištrinti šią reigstraciją? Data: "+date);
+         if(!r)
+             return;
+         $http({
+          method: 'POST',
+          url: $rootScope.url+'/deleteRegistration',
+          data: {"user": $rootScope.user, "date": date}
+          }).then(function successCallback(response) {
+               if(response.data != "")
+               {
+                    $http({
+                             method: 'POST',
+                             url: $rootScope.url+'/getRegistrations',
+                             data: {"user": $rootScope.user}
+                             }).then(function successCallback(response) {
+                                  if(response.data != "")
+                                  {
+                                   $scope.products = response.data;
+                                  }
+                                  else
+                                  {
+                                     alert("Registracijų neturite");
+                                  }
+                                  }, function errorCallback(response) {
+                                     alert("Problemos su interneto ryšiu");
+                                  });
+               }
+               else
+               {
+                    $http({
+                             method: 'POST',
+                             url: $rootScope.url+'/getRegistrations',
+                             data: {"user": $rootScope.user}
+                             }).then(function successCallback(response) {
+                                  if(response.data != "")
+                                  {
+                                   $scope.products = response.data;
+                                  }
+                                  else
+                                  {
+                                     alert("Registracijų neturite");
+                                  }
+                                  }, function errorCallback(response) {
+                                     alert("Problemos su interneto ryšiu");
+                                  });
+               }
+               }, function errorCallback(response) {
+                  alert("Nepavyko ištrinti registracijos");
+               });
      }
 });
 
 appControllers.controller('registrationConfirmController', function($scope, $http, $rootScope, $window) {
 if($rootScope.user == null)
         $window.location.href = '/#/';
-//$rootScope.regData = { "name":name, "surname": surname, "phone":phone, "email": email, "unit":unit, "date": date,
-//            "topic": topic, "comment": comment}//, "user": rootScope.user }
 document.getElementById("nameField").innerHTML = $rootScope.regData.name; //"Vardenis";
 document.getElementById("surnameField").innerHTML = $rootScope.regData.surname; //"Pavardenis";
 document.getElementById("phoneField").innerHTML = $rootScope.regData.phone; //"+370 12345678";
@@ -283,8 +348,6 @@ document.getElementById("unitSelect").innerHTML = $rootScope.regData.unit; //"oz
 document.getElementById("dateField").innerHTML = $rootScope.regData.date; //"2016-03-19";
 document.getElementById("topicSelect").innerHTML = $rootScope.regData.topic; //"PAskolos, lizingas";
 document.getElementById("commentField").innerHTML = $rootScope.regData.comment; //"Paskolos suteikimas užsienyje studijuojnčiam studentui";
-
-
 
 $scope.cancel = function() {
             $window.location.href = '/#/overview';
