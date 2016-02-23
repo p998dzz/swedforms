@@ -43,7 +43,9 @@ table {
       border-collapse: collapse;
       width: 600px;
       height:200px;
+      max-width: 100%;
 }
+
 td {
       padding-bottom: 3px;
       padding-right: 10px;
