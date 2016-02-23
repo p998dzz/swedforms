@@ -537,15 +537,6 @@ if($rootScope.user == null)
    $window.location.href = '/#/';
 if($rootScope.regData == null)
 {
-banksection: "Antakalnio g. 45"
-comments: "dfdfdg"
-date: "2016-02-24 11:00"
-email: "test@test.lt"
-id: "56cc3cb6f6a657747a17a060"
-name: "domantas"
-phoneNumber: "+370 5555555"
-surname: "trtr"
-topic: "Gyvybės draudimas"
     $rootScope.regData = { "name":$rootScope.products.name, "lastName": $rootScope.products.surname,
      "phoneNumber":$rootScope.products.phoneNumber, "email": $rootScope.products.email,
       "unit":$rootScope.products.banksection, "date": $rootScope.products.date,

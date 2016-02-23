@@ -1,19 +1,22 @@
 <head>
-
     <title>Parašykite mums</title>
 </head>
 <div class="btn-group" style="position: fixed; top: 10px; right: 10px;" role="group" aria-label="...">
     <button type="button" ng-click="logOff()" class="btn btn-default">Atsijungti</button>
     <button type="button" ng-click="home()" class="btn btn-default">Pradinis puslapis</button>
 </div>
-<h1>Parašykite mums</h1>
-<div align="center" action="action_page.php">
-    <form>
+<div class="centered box" action="action_page.php">
+    <form id="form1">
         <table>
             <tr>
-                <td>Tema</td>
+                <td colspan="2">
+                    <h2>Parašykite mums</h2>
+                </td>
+            </tr>
+            <tr>
+                <td>Tema *</td>
                 <td>
-                    <select id="topicSelect">
+                    <select style="width:200px;" id="topicSelect">
                         <option value="Nepasirinkta" selected>Nepasirinkta</option>
                         <option value="Taupymas ir investavimas">Taupymas ir investavimas</option>
                         <option value="Pensijos ir kaupimas">Pensijos ir kaupimas</option>
@@ -24,33 +27,26 @@
                     </select>
                 </td>
             </tr>
-
             <tr>
-                <td>Žinutės tekstas</td>
-                <td><textarea maxlength="400" name="question" style="height:80px; width: 270px;" id="messageField" cols="60"
-                              rows="10"></textarea></td>
+                <td>Žinutės tekstas *</td>
+                <td><textarea id="messageField" class="inputs" size="400" style="height:60px;" cols="50" rows="12" ></textarea></td>
             </tr>
-
             <tr>
-                <td name="firstname">Vardas</td>
-                <td><input type="text" id="nameField"></td>
+                <td name="firstname">Vardas *</td>
+                <td><input type="text" class="inputs" id="nameField"></td>
             </tr>
-
             <tr>
                 <td name="lastname">Pavardė</td>
-                <td><input type="text" id="lastnameField"></td>
+                <td><input type="text" class="inputs" id="lastnameField"></td>
             </tr>
-
             <tr>
-                <td name="phone">Telefonas</td>
-                <td><input name="phone" type="text" value="+370" id="phoneField"></td>
+                <td name="phone">Telefonas *</td>
+                <td><input name="phone" class="inputs" type="text" value="+370" id="phoneField"></td>
             </tr>
-
             <tr>
-                <td name="email">El. Paštas</td>
-                <td><input type="text" id="emailField"></td>
+                <td name="email">El. Paštas *</td>
+                <td><input type="text" class="inputs" id="emailField"></td>
             </tr>
-
             <tr>
                 <td>Kaip pageidaujate gauti atsakymą</td>
                 <td>
@@ -62,27 +58,22 @@
                     </form>
                 </td>
             </tr>
-
             <tr>
-                <td colspan="2">
-                    Į pateiktus klausimus atsakome darbo dienomis 8-20 val., šeštadieniais 9-16 valandomis.<br>Jeigu jums
-                    reikalinga
-                    skubi informacija, laukiame jūsų skambučių tel. 1884 (privatiems<br>
-                    klientams) bei 1633 (verslo klientams). Iš užsienio skambinkite tel. +370 5 268 444<br>(privatiems
-                    klientams) bei
-                    +370 5 268 4422 (verslo klientams).<br>
+                <td colspan="2" class="inputs">
+                    Į pateiktus klausimus atsakome darbo dienomis 8-20 val., šeštadieniais 9-16 valandomis.Jeigu jums
+                    reikalinga skubi informacija, laukiame jūsų skambučių tel. 1884 (privatiems klientams)
+                    bei 1633 (verslo klientams). Iš užsienio skambinkite tel. +370 5 268 444(privatiems klientams)
+                    bei +370 5 268 4422 (verslo klientams).
                 </td>
             </tr>
-
-
             <tr>
-                <td valign="bottom" align="left" >
-
+                <td valign="bottom" align="left">
                     <button class="btn btn-default" ng-click="cancel()">Atšaukti</button>
                 </td>
-                <td valign="bottom" align="right"><input class="btn btn-default" ng-click="contact()" type="submit" value="Siųsti"></td>
+                <td valign="bottom" valign="bottom" align="right">
+                    <input class="btn btn-default" ng-click="contact()" type="submit" value="Siųsti" >
+                </td>
             </tr>
-
         </table>
     </form>
 </div>
