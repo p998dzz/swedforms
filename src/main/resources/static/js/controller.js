@@ -65,6 +65,11 @@ function isValidPhonenumber(value) {
     return (/^\d{7,}$/).test(value.replace(/[\s()+\-\.]|ext/gi, ''));
 }
 
+function isValidDate(value){
+    var patt = new RegExp(/^(\d{4})-(\d{2})-(\d{2})/);
+    return patt.test(value);
+}
+
 Date.prototype.yyyymmdd = function() {
    var yyyy = this.getFullYear().toString();
    var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
@@ -191,11 +196,18 @@ appControllers.controller('newRegistrationController', function($scope, $http, $
            }
 
 //~~~~~~~~~~~~~~NEZINAU KOKIA DEFAULTINE REIKSME
-           if(date == ""){
+           if(!isValidDate(date)){
                 $("#dateField").css("background-color","#FFB0B0")
                 setTimeout(function(){ $("#dateField").css("background-color","#FFFFFF")}, 3000);
                 return;
            }
+
+           if(!isEmail(email) || email.length == 0  ){
+               $("#emailField").css("background-color","#FFB0B0");
+               setTimeout(function(){ $("#emailField").css("background-color","#FFFFFF")}, 3000);
+               //setTimeout(function(){ }, 3000);
+               return;
+          }
 
            if(topic == "Nepasirinkta"){
                            $("#topicSelect").css("background-color","#FFB0B0");
@@ -463,9 +475,11 @@ appControllers.controller('overviewController', function($scope, $http, $rootSco
               }
               else
               {
+                $scope.products = new Array();
                  //alert("Registracijų neturite");
               }
               }, function errorCallback(response) {
+                $scope.products = new Array();
                  if($rootScope.user != null)
                       alert("Problemos su interneto ryšiu");
               });
@@ -475,6 +489,11 @@ $scope.regi = function() {
      }
 
 $scope.regconf = function(date) {
+        for(var i = 0; i < $rootScope.products.length; i++)
+        {
+            if($rootScope.products[i].date == date)
+                $rootScope.products = $rootScope.products[i];
+        }
         $window.location.href = '/#/registrationConfirm';
       }
 
@@ -535,7 +554,7 @@ $scope.cancel = function(date) {
 appControllers.controller('registrationConfirmController', function($scope, $http, $rootScope, $window) {
 if($rootScope.user == null)
    $window.location.href = '/#/';
-if($rootScope.regData == null)
+if($rootScope.regData == null || $rootScope.regData.date == "undefined")
 {
     $rootScope.regData = { "name":$rootScope.products.name, "lastName": $rootScope.products.surname,
      "phoneNumber":$rootScope.products.phoneNumber, "email": $rootScope.products.email,
