@@ -36,9 +36,8 @@ public class WebService {
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public String authenticate(@RequestBody final User person, HttpServletRequest request) {
-        List<lt.swedforms.Entities.User> authenticatedUsers = userRepository.findByEmailAndPassword(person.getEmail(), person.getPass());
-        if (userRepository.findByEmailAndPassword(person.getEmail(), person.getPass()).size() != 0) {
-            lt.swedforms.Entities.User user = authenticatedUsers.get(0);
+        if (userRepository.findByEmail(person.getEmail()).size() !=0 && userRepository.findByEmail(person.getEmail()).get(0).getPass().equals(person.getPass())) {
+            lt.swedforms.Entities.User user = userRepository.findByEmail(person.getEmail()).get(0);
             String userIdentification = setRandom(user, request.getRemoteAddr());
             userRepository.save(user);
             return userIdentification;
@@ -65,7 +64,7 @@ public class WebService {
             lt.swedforms.Entities.User user = users.get(0);
             user.setRandom("", "");
             userRepository.save(user);
-            return "OK";
+            return null;
         } else {
             return null;
         }

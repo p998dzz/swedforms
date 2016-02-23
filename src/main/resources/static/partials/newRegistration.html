@@ -2,6 +2,10 @@
 
     <title>Registracija</title>
 </head>
+<div class="btn-group" style="position: fixed; top: 10px; right: 10px;" role="group" aria-label="...">
+    <button type="button" ng-click="logOff()" class="btn btn-default">Atsijungti</button>
+    <button type="button" ng-click="home()" class="btn btn-default">Pradinis puslapis</button>
+</div>
 
 <div align="center">
     <form ng-submit="register()">
@@ -33,11 +37,11 @@
                 <td colspan="2">
                     <select id="unitSelect">
                         <option value="Nepasirinkta" selected>Nepasirinkta</option>
-                        <option value="Antakalnio45">Antakalnio g. 45</option>
-                        <option value="Ateities91">Ateities g. 91 (PC „Mandarinas")</option>
-                        <option value="Gedimino56">Gedimino pr. 56</option>
-                        <option value="Konstitucijos20A">Konstitucijos pr. 20A, dirba Būsto Centras</option>
-                        <option value="Ozo25">Ozo g. 25 (PPC „Akropolis")</option>
+                        <option value="Antakalnio g. 45">Antakalnio g. 45</option>
+                        <option value="Ateities g. 91 (PC „Mandarinas")">Ateities g. 91 (PC „Mandarinas")</option>
+                        <option value="Gedimino pr. 56">Gedimino pr. 56</option>
+                        <option value="Konstitucijos pr. 20A, dirba Būsto Centras">Konstitucijos pr. 20A, dirba Būsto Centras</option>
+                        <option value="Ozo g. 25 (PPC „Akropolis")">Ozo g. 25 (PPC „Akropolis")</option>
                     </select>
                 </td>
             </tr>

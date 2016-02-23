@@ -1,7 +1,5 @@
 var appControllers = angular.module('controllers', []);
 
-
-
 appControllers.controller('loginController', function($scope, $http, $rootScope, $window) {
     $scope.register = function() {
            $window.location.href = '/#/newUser';
@@ -25,15 +23,36 @@ appControllers.controller('loginController', function($scope, $http, $rootScope,
                         setTimeout(function(){ $("#wrongPassword").hide(); }, 3000);
                      }
                    }, function errorCallback(response) {
-                        alert("Problemos su interneto ryšiu");
+                        if($rootScope.user != null)
+                             alert("Problemos su interneto ryšiu");
                    });
     }
 
 });
 
 appControllers.controller('homeController', function($scope, $http, $rootScope, $window) {
-    if($rootScope.user == null)
-        $window.location.href = '/#/';
+   $scope.logOff = function(){
+           $http({
+              method: 'POST',
+              url: $rootScope.url+'/signOut',
+              data: { "user":$rootScope.user}
+                 }).then(function successCallback(response) {
+                        if(response.data != "")
+                        {
+                           $rootScope.user = null;
+                           $window.location.href = '/#/';
+                        }else
+                        {
+                           $rootScope.user = null;
+                           $window.location.href = '/#/';
+                        }
+                      }, function errorCallback(response) {
+                           $rootScope.user = null;
+                           $window.location.href = '/#/';
+                    });
+      }
+   if($rootScope.user == null)
+     $window.location.href = '/#/';
     $scope.regi = function() {
         $window.location.href = '/#/overview';
      }
@@ -41,6 +60,10 @@ appControllers.controller('homeController', function($scope, $http, $rootScope, 
         $window.location.href = '/#/ContactUs';
   }
 });
+
+function isValidPhonenumber(value) {
+    return (/^\d{7,}$/).test(value.replace(/[\s()+\-\.]|ext/gi, ''));
+}
 
 Date.prototype.yyyymmdd = function() {
    var yyyy = this.getFullYear().toString();
@@ -52,7 +75,30 @@ Date.prototype.yyyymmdd = function() {
 appControllers.controller('newRegistrationController', function($scope, $http, $rootScope, $window) {
     if($rootScope.user == null)
             $window.location.href = '/';
+    $scope.home = function(){
+                $window.location.href = '/#/home';
+           };
 
+           $scope.logOff = function(){
+                $http({
+                   method: 'POST',
+                   url: $rootScope.url+'/signOut',
+                   data: { "user":$rootScope.user}
+                      }).then(function successCallback(response) {
+                             if(response.data != "")
+                             {
+                                $rootScope.user = null;
+                                $window.location.href = '/#/';
+                             }else
+                             {
+                                $rootScope.user = null;
+                                $window.location.href = '/#/';
+                             }
+                           }, function errorCallback(response) {
+                                $rootScope.user = null;
+                                $window.location.href = '/#/';
+                         });
+           }
 
     $scope.times = ["8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00"];
     $http({
@@ -97,7 +143,8 @@ appControllers.controller('newRegistrationController', function($scope, $http, $
                  alert("Serverio problema");
               }
               }, function errorCallback(response) {
-                 alert("Problemos su interneto ryšiu");
+                 if($rootScope.user != null)
+                      alert("Problemos su interneto ryšiu");
               });
 
     $scope.register = function() {
@@ -111,7 +158,54 @@ appControllers.controller('newRegistrationController', function($scope, $http, $
            var topic = $("#topicSelect").val();
            var comment = $("#commentField").val();
 
-            //validacijos
+
+           if(name.length == 0){
+               $("#nameField").css("background-color","#FFB0B0");
+               setTimeout(function(){ $("#nameField").css("background-color","#FFFFFF")}, 3000);
+               //setTimeout(function(){ }, 3000);
+               return;
+               }
+           else //reik kazkaip sugalvot kaip padaryt kad
+
+           if(surname.length == 0){
+                              $("#surnameField").css("background-color","#FFB0B0");
+                              setTimeout(function(){ $("#surnameField").css("background-color","#FFFFFF")}, 3000);
+                              //setTimeout(function(){ }, 3000);
+                              return;
+                              }
+                      else //reik kazkaip sugalvot kaip padaryt kad kai jau iraso border line pavirsta paprasta pilka
+
+//~~~~~~~~~~~~~~~~PAGAL KA DAR TIKRINT?
+           if(!isValidPhonenumber(phone)){
+                $("#phoneField").css("background-color","#FFB0B0")
+                setTimeout(function(){ $("#phoneField").css("background-color","#FFFFFF")}, 3000);
+                return;
+           }
+
+
+           if(unit == "Nepasirinkta"){
+              $("#unitSelect").css("background-color","#FFB0B0");
+              setTimeout(function(){ $("#unitSelect").css("background-color","#FFFFFF")}, 3000);
+              // setTimeout(function(){ $("#topicSelect").css("border-color", "#C0C0C0")}, 3000);
+              return;
+           }
+
+//~~~~~~~~~~~~~~NEZINAU KOKIA DEFAULTINE REIKSME
+           if(date == ""){
+                $("#dateField").css("background-color","#FFB0B0")
+                setTimeout(function(){ $("#dateField").css("background-color","#FFFFFF")}, 3000);
+                return;
+           }
+
+           if(topic == "Nepasirinkta"){
+                           $("#topicSelect").css("background-color","#FFB0B0");
+                           setTimeout(function(){ $("#topicSelect").css("background-color","#FFFFFF")}, 3000);
+                          // setTimeout(function(){ $("#topicSelect").css("border-color", "#C0C0C0")}, 3000);
+                           return;
+                      }
+
+
+
 
             $rootScope.regData = { "name":name, "lastName": surname, "phoneNumber":phone, "email": email, "unit":unit, "date": date,
             "time" : time, "topic": topic, "comment": comment, "user": $rootScope.user }
@@ -128,7 +222,8 @@ appControllers.controller('newRegistrationController', function($scope, $http, $
                             alert("Jūsų pasirinktą laiką spėjo užimti");
                          }
                        }, function errorCallback(response) {
-                            alert("Problemos su interneto ryšiu");
+                            if($rootScope.user != null)
+                                alert("Problemos su interneto ryšiu");
                        });
     }
     $scope.cancel = function() {
@@ -137,20 +232,91 @@ appControllers.controller('newRegistrationController', function($scope, $http, $
 });
 
 appControllers.controller('ContactUsController', function($scope, $http, $rootScope, $window) {
-        if($rootScope.user == null)
-                $window.location.href = '/#/';
+       if($rootScope.user == null)
+              $window.location.href = '/#/';
+
+       $scope.home = function(){
+            $window.location.href = '/#/home';
+       };
+
+       $scope.logOff = function(){
+            $http({
+               method: 'POST',
+               url: $rootScope.url+'/signOut',
+               data: { "user":$rootScope.user}
+                  }).then(function successCallback(response) {
+                         if(response.data != "")
+                         {
+                            $rootScope.user = null;
+                            $window.location.href = '/#/';
+                         }else
+                         {
+                            $rootScope.user = null;
+                            $window.location.href = '/#/';
+                         }
+                       }, function errorCallback(response) {
+                            $rootScope.user = null;
+                            $window.location.href = '/#/';
+                     });
+       }
 
        $scope.contact = function() {
                var topic = $("#topicSelect").val();
                var message = $("#messageField").val();
                var name = $( "#nameField" ).val();
-               var lastname = $( "#lastnameField" ).val();
+               var lastName = $( "#lastnameField" ).val();
                var phone = $( "#phoneField" ).val();
                var email = $( "#emailField" ).val();
                var radio1 = $("responcephone").val();
                var radio2 = $("responceemail").val();
                var radio3 = $("responceboth").val();
                var radio;
+
+//~`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~REIK PATIKRINT SITUOS
+           if(topic == "Nepasirinkta"){
+                $("#topicSelect").css("background-color","#FFB0B0");
+                setTimeout(function(){ $("#topicSelect").css("background-color","#FFFFFF")}, 3000);
+               // setTimeout(function(){ $("#topicSelect").css("border-color", "#C0C0C0")}, 3000);
+                return;
+           }
+
+
+           if(message.length == 0){
+                $("#messageField").css("background-color","#FFB0B0");
+                setTimeout(function(){ $("#messageField").css("background-color","#FFFFFF")}, 3000);
+                //setTimeout(function(){ }, 3000);
+                return;
+           }
+
+           if(name.length == 0){
+                $("#nameField").css("background-color","#FFB0B0");
+                setTimeout(function(){ $("#nameField").css("background-color","#FFFFFF")}, 3000);
+                //setTimeout(function(){ }, 3000);
+                return;
+           }
+
+           if(lastName.length == 0){
+                   $("#lastnameField").css("background-color","#FFB0B0");
+                   setTimeout(function(){ $("#lastnameField").css("background-color","#FFFFFF")}, 3000);
+                   //setTimeout(function(){ }, 3000);
+                   return;
+                   }
+//~~~~~~~~~~~~~~~~PAGAL KA DAR TIKRINT? ///reik patikslint-----------------------
+           if(!isValidPhonenumber(phone)){
+                $("#phoneField").css("background-color","#FFB0B0");
+                setTimeout(function(){ $("#phoneField").css("background-color","#FFFFFF")}, 3000);
+                return;
+           }
+
+//~~~~~~~~~~~~~~~~~PAGAL KA DAR TIKRINT?
+           if(!isEmail(email) || email.length == 0  ){
+                $("#emailField").css("background-color","#FFB0B0");
+                setTimeout(function(){ $("#emailField").css("background-color","#FFFFFF")}, 3000);
+                //setTimeout(function(){ }, 3000);
+                return;
+           }
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
                if(radio1 != null)
                 radio = radio1;
@@ -162,7 +328,7 @@ appControllers.controller('ContactUsController', function($scope, $http, $rootSc
                $http({
                    method: 'POST',
                    url: $rootScope.url+'/createContactUs',
-                   data: { "topic":topic, "message":message, "name":name, "lastname": lastname,
+                   data: { "topic":topic, "message":message, "name":name, "lastName": lastName,
                    "phone":phone, "email": email, "radio":radio, "user": $rootScope.user}
                                   }).then(function successCallback(response) {
                              if(response.data != "")
@@ -173,19 +339,20 @@ appControllers.controller('ContactUsController', function($scope, $http, $rootSc
                                 alert("Įvyko klaida");
                              }
                            }, function errorCallback(response) {
-                                alert("Problemos su interneto ryšiu");
+                                if($rootScope.user != null)
+                                    alert("Problemos su interneto ryšiu");
                          });
 
                };
 
        $scope.cancel = function() {
-               $window.location.href = '/#/home';
-               }
+           $window.location.href = '/#/home';
+       }
 });
 
 appControllers.controller('confirmationController', function($scope, $http, $rootScope, $window) {
     if($rootScope.user == null)
-            $window.location.href = '/#/';
+        $window.location.href = '/#/';
     $scope.conf = function() {
         $window.location.href = '/#/home';
   }
@@ -199,7 +366,7 @@ function isEmail(email) {
 appControllers.controller('newUserController', function($scope, $http, $rootScope, $window) {
     $("#emailField").keypress(function() {
         if($( "#emailField" ).val().length > 50){
-            $("#emailField").css("background-color","#D490A7")
+            $("#emailField").css("background-color","#FFB0B0")
             setTimeout(function(){ $("#emailField").css("background-color","#FFFFFF")}, 3000);
         }else{
             $("#emailField").css("background-color","#FFFFFF")
@@ -208,7 +375,7 @@ appControllers.controller('newUserController', function($scope, $http, $rootScop
 
     $("#passwordField").keypress(function() {
             if($( "#passwordField" ).val().length > 20){
-                $("#passwordField").css("background-color","#D490A7")
+                $("#passwordField").css("background-color","#FFB0B0")
                   setTimeout(function(){ $("#passwordField").css("background-color","#FFFFFF")}, 3000);
             }else{
                 $("#passwordField").css("background-color","#FFFFFF")
@@ -219,17 +386,17 @@ appControllers.controller('newUserController', function($scope, $http, $rootScop
            var email = $( "#emailField" ).val();
            var password = $( "#passwordField" ).val();
            if(!isEmail(email) || email > 50){
-                $("#emailField").css("background-color","#D490A7")
+                $("#emailField").css("background-color","#FFB0B0")
                 setTimeout(function(){ $("#emailField").css("background-color","#FFFFFF")}, 3000);
                 return;
            }
-           if(password.lenght > 20 || password.lenght < 8){
-                $("#passwordField").css("background-color","#D490A7")
+           if(password.length > 20 || password.length < 8){
+                $("#passwordField").css("background-color","#FFB0B0")
                 setTimeout(function(){ $("#passwordField").css("background-color","#FFFFFF")}, 3000);
                 return;
            }
            if($( "#repeatpasswordField" ).val() != password){
-                $("#repeatpasswordField").css("background-color","#D490A7")
+                $("#repeatpasswordField").css("background-color","#FFB0B0")
                 setTimeout(function(){ $("#repeatpasswordField").css("background-color","#FFFFFF")}, 3000);
                 return;
            }
@@ -247,7 +414,8 @@ appControllers.controller('newUserController', function($scope, $http, $rootScop
                             alert("Jau egzistuoja toks vartotojas");
                          }
                        }, function errorCallback(response) {
-                            alert("Problemos su interneto ryšiu");
+                            if($rootScope.user != null)
+                                 alert("Problemos su interneto ryšiu");
                        });
         }
 
@@ -259,6 +427,30 @@ $scope.cancel = function() {
 appControllers.controller('overviewController', function($scope, $http, $rootScope, $window) {
         if($rootScope.user == null)
                 $window.location.href = '/';
+        $scope.home = function(){
+                    $window.location.href = '/#/home';
+               };
+
+       $scope.logOff = function(){
+            $http({
+               method: 'POST',
+               url: $rootScope.url+'/signOut',
+               data: { "user":$rootScope.user}
+                  }).then(function successCallback(response) {
+                         if(response.data != "")
+                         {
+                            $rootScope.user = null;
+                            $window.location.href = '/#/';
+                         }else
+                         {
+                            $rootScope.user = null;
+                            $window.location.href = '/#/';
+                         }
+                       }, function errorCallback(response) {
+                            $rootScope.user = null;
+                            $window.location.href = '/#/';
+                     });
+       }
         $http({
          method: 'POST',
          url: $rootScope.url+'/getRegistrations',
@@ -266,14 +458,16 @@ appControllers.controller('overviewController', function($scope, $http, $rootSco
          }).then(function successCallback(response) {
               if(response.data != "")
               {
-               $scope.products = response.data;
+                    $scope.products = response.data;
+                    $rootScope.products = response.data;
               }
               else
               {
-                 alert("Registracijų neturite");
+                 //alert("Registracijų neturite");
               }
               }, function errorCallback(response) {
-                 alert("Problemos su interneto ryšiu");
+                 if($rootScope.user != null)
+                      alert("Problemos su interneto ryšiu");
               });
 
 $scope.regi = function() {
@@ -302,14 +496,15 @@ $scope.cancel = function(date) {
                              }).then(function successCallback(response) {
                                   if(response.data != "")
                                   {
-                                   $scope.products = response.data;
+                                      $window.location.href = "/#/refreshOverview";
                                   }
                                   else
                                   {
-                                     alert("Registracijų neturite");
+                                     $window.location.href = "/#/refreshOverview";
                                   }
                                   }, function errorCallback(response) {
-                                     alert("Problemos su interneto ryšiu");
+                                     if($rootScope.user != null)
+                                         alert("Problemos su interneto ryšiu");
                                   });
                }
                else
@@ -330,7 +525,7 @@ $scope.cancel = function(date) {
                                   }, function errorCallback(response) {
                                      alert("Problemos su interneto ryšiu");
                                   });
-               }
+                        }
                }, function errorCallback(response) {
                   alert("Nepavyko ištrinti registracijos");
                });
@@ -339,10 +534,27 @@ $scope.cancel = function(date) {
 
 appControllers.controller('registrationConfirmController', function($scope, $http, $rootScope, $window) {
 if($rootScope.user == null)
-        $window.location.href = '/#/';
+   $window.location.href = '/#/';
+if($rootScope.regData == null)
+{
+banksection: "Antakalnio g. 45"
+comments: "dfdfdg"
+date: "2016-02-24 11:00"
+email: "test@test.lt"
+id: "56cc3cb6f6a657747a17a060"
+name: "domantas"
+phoneNumber: "+370 5555555"
+surname: "trtr"
+topic: "Gyvybės draudimas"
+    $rootScope.regData = { "name":$rootScope.products.name, "lastName": $rootScope.products.surname,
+     "phoneNumber":$rootScope.products.phoneNumber, "email": $rootScope.products.email,
+      "unit":$rootScope.products.banksection, "date": $rootScope.products.date,
+     "topic": $rootScope.products.topic,
+      "comment": $rootScope.products.comments };
+}
 document.getElementById("nameField").innerHTML = $rootScope.regData.name; //"Vardenis";
-document.getElementById("surnameField").innerHTML = $rootScope.regData.surname; //"Pavardenis";
-document.getElementById("phoneField").innerHTML = $rootScope.regData.phone; //"+370 12345678";
+document.getElementById("surnameField").innerHTML = $rootScope.regData.lastName; //"Pavardenis";
+document.getElementById("phoneField").innerHTML = $rootScope.regData.phoneNumber; //"+370 12345678";
 document.getElementById("emailField").innerHTML = $rootScope.regData.email; //"pavardenis@gmail.com";
 document.getElementById("unitSelect").innerHTML = $rootScope.regData.unit; //"ozo g. 25(PPC Akropolis)";
 document.getElementById("dateField").innerHTML = $rootScope.regData.date; //"2016-03-19";
@@ -350,6 +562,7 @@ document.getElementById("topicSelect").innerHTML = $rootScope.regData.topic; //"
 document.getElementById("commentField").innerHTML = $rootScope.regData.comment; //"Paskolos suteikimas užsienyje studijuojnčiam studentui";
 
 $scope.cancel = function() {
-            $window.location.href = '/#/overview';
-            }
+        $rootScope.regData == null
+        $window.location.href = '/#/overview';
+}
 });

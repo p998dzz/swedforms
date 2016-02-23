@@ -36,6 +36,10 @@ swedApp.config(['$routeProvider',
                templateUrl: 'partials/overview.html',
                controller: 'overviewController'
             }).
+    when('/refreshOverview', {
+                   templateUrl: 'partials/overview.html',
+                                  controller: 'overviewController'
+                }).
       when('/registrationConfirm', {
                templateUrl: 'partials/registrationConfirm.html',
                controller: 'registrationConfirmController'
